@@ -1,5 +1,5 @@
 .PHONY: build
-build:
+do:
 	cmake -S . -B build
 	cmake --build build
 
