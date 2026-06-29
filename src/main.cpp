@@ -1,3 +1,6 @@
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_keycode.h"
+#include "SDL3/SDL_video.h"
 #include <SDL3/SDL.h>
 #include <glad/glad.h>
 #include <iostream>
@@ -32,7 +35,28 @@ int main() {
   // For debugging and demo purposes
   cout << glGetString(GL_VERSION) << endl;
 
-  SDL_Delay(5000);
+  int isRunning = 1;
+  while (isRunning) {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+        case SDL_EVENT_QUIT:
+          isRunning = 0;
+          break;
+        case SDL_EVENT_KEY_DOWN:
+          if (event.key.key == SDLK_ESCAPE) {
+            isRunning = 0;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  SDL_GL_DestroyContext(glContext);
+  SDL_DestroyWindow(window);
 
   SDL_Quit();
 }

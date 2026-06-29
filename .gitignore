@@ -1,6 +1,7 @@
 ### C++ ###
 # Prerequisites
 *.d
+.clang-format
 
 # Compiled Object files
 *.slo
