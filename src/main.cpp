@@ -53,6 +53,12 @@ int main() {
           break;
       }
     }
+
+    glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(window);
+    SDL_Delay(1);
   }
 
   SDL_GL_DestroyContext(glContext);
