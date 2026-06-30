@@ -1,12 +1,12 @@
-#include "SDL3/SDL_events.h"
-#include "SDL3/SDL_keycode.h"
-#include "SDL3/SDL_video.h"
 #include <SDL3/SDL.h>
+#include <chrono>
 #include <glad/glad.h>
 #include <iostream>
 using namespace std;
 
 int main() {
+
+  // INITIALZING RENDER //
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_Log("SDL Failed to Initialize.");
     return -1;
@@ -34,10 +34,17 @@ int main() {
 
   // For debugging and demo purposes
   cout << glGetString(GL_VERSION) << endl;
+  glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
 
+  ////
+
+  double timePerFrame = 1.0 / 60.0;
   int isRunning = 1;
   while (isRunning) {
+
+    auto start = chrono::high_resolution_clock::now();
     SDL_Event event;
+
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
         case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
@@ -54,11 +61,19 @@ int main() {
       }
     }
 
-    glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
     SDL_GL_SwapWindow(window);
-    SDL_Delay(1);
+
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
+    double frameTime = elapsed.count();
+    if (frameTime > 0.25) {
+      frameTime = 0.25;
+    }
+    if (timePerFrame >= frameTime) {
+      SDL_Delay(
+          static_cast<uint32_t>((timePerFrame * 1000) - (frameTime * 1000)));
+    }
   }
 
   SDL_GL_DestroyContext(glContext);
