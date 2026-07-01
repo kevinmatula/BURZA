@@ -6,6 +6,7 @@ set(SOURCES
     src/core/Application.cpp
     src/core/ApplicationInit.cpp
     src/rendering/Renderer.cpp
+    src/rendering/Shader.cpp
     src/input/InputManager.cpp
     external/glad/src/glad.c
 )
@@ -31,3 +32,12 @@ target_include_directories(
 
 # Link to the actual SDL3 library.
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE SDL3::SDL3)
+
+add_custom_command(
+    TARGET ${CMAKE_PROJECT_NAME}
+    POST_BUILD
+    COMMAND
+        ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/assets
+    COMMENT "Copying assets/ into BURZA binary"
+)
