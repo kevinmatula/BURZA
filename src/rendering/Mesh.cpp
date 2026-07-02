@@ -9,8 +9,6 @@ Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
   glGenBuffers(1, &VBO);
   bind();
 
-  // For now using GL_STATIC_DRAW but can probably make
-  // modular in future ?
   glBufferData(GL_ARRAY_BUFFER, (vertexData.size() * sizeof(float)),
                vertexData.data(), GL_STATIC_DRAW);
 
@@ -20,7 +18,6 @@ Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
 
   applyAndEnableAttributes(attributes, vertexSize);
 
-  // Unbinding
   unbind();
 }
 

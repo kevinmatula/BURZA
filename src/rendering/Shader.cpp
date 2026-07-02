@@ -57,7 +57,7 @@ void Shader::checkShaderCompilation(unsigned int givenShader) {
   if (!success) {
     glGetShaderInfoLog(givenShader, 512, NULL, infoLog);
     std::string errorMessage =
-        "ERROR::SHADER::VERTEX::COMPILATION_FAILED: " + std::string(infoLog);
+        "ERROR::SHADER::COMPILATION_FAILED: " + std::string(infoLog);
     throw std::runtime_error(std::string(errorMessage));
   }
 }
