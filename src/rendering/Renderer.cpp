@@ -1,4 +1,5 @@
 #include "rendering/Renderer.hpp"
+#include "rendering/Mesh.hpp"
 #include "rendering/Shader.hpp"
 #include <glad/glad.h>
 #include <stdexcept>
@@ -18,33 +19,13 @@ void Renderer::initializeGlad() {
 
 void Renderer::draw(Window &window) {
   glClear(GL_COLOR_BUFFER_BIT);
+
   Shader shader("assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
   shader.use();
-
-  // VAO STUFF
-  unsigned int VAO;
-  glGenVertexArrays(1, &VAO);
-  glBindVertexArray(VAO);
-  //
-
-  // VBO STUFF
-  float vertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
-  unsigned int VBO;
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  //
-
-  // Linking Vertex Attributes
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-  glEnableVertexAttribArray(0);
-  //
-
-  // Drawing
-  glDrawArrays(GL_TRIANGLES, 0, 3);
-  glBindVertexArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  //
+  std::vector<float> vertices = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
+                                 0.0f,  0.0f,  0.5f, 0.0f};
+  Mesh mesh(vertices, VertexFormat::Position);
+  mesh.draw();
 
   window.swap();
 }

@@ -7,6 +7,7 @@ set(SOURCES
     src/core/ApplicationInit.cpp
     src/rendering/Renderer.cpp
     src/rendering/Shader.cpp
+    src/rendering/Mesh.cpp
     src/input/InputManager.cpp
     external/glad/src/glad.c
 )
