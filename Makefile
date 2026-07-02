@@ -1,7 +1,7 @@
 .PHONY: build
-do:
+cook:
 	cmake -S . -B build
 	cmake --build build
 
-run:
+eat:
 	cd build && ./BURZA
