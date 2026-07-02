@@ -7,7 +7,7 @@
 class Mesh {
 public:
   // Constructor - Sets up VAO & VBO, as well as
-  Mesh(const std::vector<float> &vertices, VertexFormat format);
+  Mesh(const std::vector<float> &vertexData, VertexFormat format);
   // Destructor - Frees Memory within Mesh, destroying VAO, VBO, etc.
   ~Mesh();
 

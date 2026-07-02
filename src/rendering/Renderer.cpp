@@ -22,9 +22,9 @@ void Renderer::draw(Window &window) {
 
   Shader shader("assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
   shader.use();
-  std::vector<float> vertices = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
-                                 0.0f,  0.0f,  0.5f, 0.0f};
-  Mesh mesh(vertices, VertexFormat::Position);
+  std::vector<float> vertexData = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
+                                   0.0f,  0.0f,  0.5f, 0.0f};
+  Mesh mesh(vertexData, VertexFormat::Position);
   mesh.draw();
 
   window.swap();

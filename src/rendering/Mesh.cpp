@@ -2,7 +2,7 @@
 #include "rendering/VertexFormat.hpp"
 #include <cstdint>
 
-Mesh::Mesh(const std::vector<float> &vertices, VertexFormat format) {
+Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
 
   // Generating Unique IDs for VAO & VBO.
   glGenVertexArrays(1, &VAO);
@@ -11,12 +11,12 @@ Mesh::Mesh(const std::vector<float> &vertices, VertexFormat format) {
 
   // For now using GL_STATIC_DRAW but can probably make
   // modular in future ?
-  glBufferData(GL_ARRAY_BUFFER, (vertices.size() * sizeof(float)),
-               vertices.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, (vertexData.size() * sizeof(float)),
+               vertexData.data(), GL_STATIC_DRAW);
 
   std::vector<VertexAttribute> attributes = getVertexAttributes(format);
   const int vertexSize = findVertexSize(attributes);
-  vertexCount = vertices.size() / vertexSize;
+  vertexCount = vertexData.size() / vertexSize;
 
   applyAndEnableAttributes(attributes, vertexSize);
 
