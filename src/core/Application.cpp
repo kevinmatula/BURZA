@@ -14,7 +14,8 @@ void Application::run() {
       isRunning = false;
     }
 
-    renderer.draw(window);
+    renderer.draw();
+    window.swap();
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = end - start;

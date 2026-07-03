@@ -1,6 +1,5 @@
 #pragma once
 
-#include "core/Window.hpp"
 #include <SDL3/SDL.h>
 
 class Renderer {
@@ -11,7 +10,7 @@ public:
   ~Renderer();
 
   // Draws onto the window with GLAD.
-  void draw(Window &window);
+  void draw();
 
 private:
   // Private Function to Initialize & Check that Glad is Valid.

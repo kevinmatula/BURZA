@@ -17,7 +17,7 @@ void Renderer::initializeGlad() {
   }
 }
 
-void Renderer::draw(Window &window) {
+void Renderer::draw() {
   glClear(GL_COLOR_BUFFER_BIT);
 
   Shader shader("assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
@@ -26,8 +26,6 @@ void Renderer::draw(Window &window) {
                                    0.0f,  0.0f,  0.5f, 0.0f};
   Mesh mesh(vertexData, VertexFormat::Position);
   mesh.draw();
-
-  window.swap();
 }
 
 Renderer::~Renderer() {}
