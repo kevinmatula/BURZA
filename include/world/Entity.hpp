@@ -2,7 +2,7 @@
 
 #include "rendering/Mesh.hpp"
 #include "rendering/Shader.hpp"
-#include <SDL3/SDL.h>
+#include <memory>
 
 class Entity {
 public:

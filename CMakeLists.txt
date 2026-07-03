@@ -9,6 +9,8 @@ set(SOURCES
     src/rendering/Shader.cpp
     src/rendering/Mesh.cpp
     src/input/InputManager.cpp
+    src/world/Entity.cpp
+    src/world/Scene.cpp
     external/glad/src/glad.c
 )
 
