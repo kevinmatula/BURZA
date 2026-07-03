@@ -4,7 +4,7 @@
 #include "core/Window.hpp"
 #include "input/InputManager.hpp"
 #include "rendering/Renderer.hpp"
-#include <SDL3/SDL.h>
+#include "world/Scene.hpp"
 
 class Application : private ApplicationInit {
 public:
@@ -15,6 +15,8 @@ public:
 
   // Spins up the engine & runs the main game loop.
   void run();
+  // Loads a given scene onto the application.
+  void loadScene(const Scene &givenScene);
 
 private:
   // Our Application is built off the following system-critical classes. These
@@ -23,6 +25,7 @@ private:
   Window window;
   Renderer renderer;
   InputManager inputManager;
+  Scene scene;
 
   // Represents time passed between each frame (60 FPS).
   static constexpr double timePerFrame = 1.0 / 60.0;

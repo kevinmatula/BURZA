@@ -8,6 +8,8 @@ class Scene {
 public:
   // Constructor - Sets up a Scene
   Scene(const std::vector<std::shared_ptr<Entity>> &givenEntities);
+  // Overloaded default constructor for initilization
+  Scene();
   // Destructor - Frees Memory within Scene
   ~Scene();
 

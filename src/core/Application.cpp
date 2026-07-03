@@ -2,7 +2,7 @@
 #include <chrono>
 using namespace std;
 
-Application::Application() : window(), renderer(), inputManager() {}
+Application::Application() : window(), renderer(), inputManager(), scene() {}
 
 void Application::run() {
   bool isRunning = true;
@@ -14,7 +14,7 @@ void Application::run() {
       isRunning = false;
     }
 
-    renderer.draw();
+    renderer.draw(scene);
     window.swap();
 
     auto end = chrono::high_resolution_clock::now();
@@ -29,5 +29,7 @@ void Application::run() {
     }
   }
 }
+
+void Application::loadScene(const Scene &givenScene) { scene = givenScene; }
 
 Application::~Application() {}

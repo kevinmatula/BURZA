@@ -1,9 +1,9 @@
 #include "rendering/Renderer.hpp"
-#include "rendering/Mesh.hpp"
-#include "rendering/Shader.hpp"
 #include <glad/glad.h>
+#include <memory>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 Renderer::Renderer() {
   initializeGlad();
@@ -17,15 +17,12 @@ void Renderer::initializeGlad() {
   }
 }
 
-void Renderer::draw() {
+void Renderer::draw(const Scene &scene) {
   glClear(GL_COLOR_BUFFER_BIT);
-
-  Shader shader("assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
-  shader.use();
-  std::vector<float> vertexData = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
-                                   0.0f,  0.0f,  0.5f, 0.0f};
-  Mesh mesh(vertexData, VertexFormat::Position);
-  mesh.draw();
+  const std::vector<std::shared_ptr<Entity>> &entities = scene.getEntities();
+  for (size_t i = 0; i < entities.size(); i++) {
+    entities[i]->draw();
+  }
 }
 
 Renderer::~Renderer() {}
