@@ -7,6 +7,10 @@ Shader::Shader(const std::filesystem::path &vertexShaderSource,
   unsigned int vertexShader = initializeShader(vertexShaderSource);
   unsigned int fragmentShader = initializeShader(fragmentShaderSource);
   shaderProgram = buildShaderProgram(vertexShader, fragmentShader);
+  mvpMatrices[MVP::Model] = glGetUniformLocation(shaderProgram, "model");
+  mvpMatrices[MVP::View] = glGetUniformLocation(shaderProgram, "view");
+  mvpMatrices[MVP::Projection] =
+      glGetUniformLocation(shaderProgram, "projection");
 }
 
 unsigned int
@@ -91,5 +95,16 @@ std::string Shader::readFile(const std::filesystem::path &givenShaderFile) {
 }
 
 void Shader::use() { glUseProgram(shaderProgram); }
+
+void Shader::applyMatrix(glm::mat4 matrix, MVP matrixName) {
+  // DEV ONLY - Check that program is being used before assigning uniform.
+  int currentProgram = 0;
+  glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+  assert(shaderProgram == currentProgram);
+  //
+
+  glUniformMatrix4fv(mvpMatrices[matrixName], 1, GL_FALSE,
+                     glm::value_ptr(matrix));
+}
 
 Shader::~Shader() { glDeleteProgram(shaderProgram); }

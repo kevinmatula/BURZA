@@ -1,7 +1,11 @@
 #pragma once
 
+#include "math/MVP.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <unordered_map>
 
 class Shader {
 public:
@@ -14,6 +18,9 @@ public:
 
   // Calls glUseProgram on this local shaderProgram
   void use();
+  // Ingests a mat4 in MVP matrix & a corresponding string, and transforms
+  // coordinates in vertexShader. Must be using this shader program.
+  void applyMatrix(glm::mat4 matrix, MVP matrixType);
 
   // Protect against double-free
   Shader(const Shader &) = delete;
@@ -41,4 +48,7 @@ private:
   // OpenGL Shader Program Object. Represents final linked version of multiple
   // shaders combined.
   unsigned int shaderProgram;
+  // Map to store the different uniform locations for model, view, and
+  // projection matrices.
+  std::unordered_map<MVP, int> mvpMatrices;
 };
