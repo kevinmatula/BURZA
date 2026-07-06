@@ -11,6 +11,7 @@ set(SOURCES
     src/input/InputManager.cpp
     src/world/Entity.cpp
     src/world/Scene.cpp
+    src/math/Transform.cpp
     external/glad/src/glad.c
 )
 
