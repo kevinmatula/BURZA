@@ -10,11 +10,17 @@ Entity::Entity(std::shared_ptr<Mesh> givenMesh,
                std::shared_ptr<Shader> givenShader)
     : mesh(givenMesh), shader(givenShader), transform() {}
 
-void Entity::draw() {
-  glm::mat4 model = transform.returnModel();
-  shader->use();
-  shader->applyMatrix(model, MVP::Model);
-  mesh->draw();
+void Entity::draw() { mesh->draw(); }
+
+void Entity::matrixToShader(
+    const std::unordered_map<MVP, glm::mat4> &mvpMatrices) {
+  // Apply model manually because it is native to Entity class.
+  shader->applyMatrix(MVP::Model, transform.returnModel());
+  for (const auto &matrixPair : mvpMatrices) {
+    shader->applyMatrix(matrixPair.first, matrixPair.second);
+  }
 }
+
+void Entity::bindShader() { shader->use(); }
 
 Entity::~Entity() {}

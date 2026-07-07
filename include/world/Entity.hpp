@@ -4,6 +4,7 @@
 #include "rendering/Mesh.hpp"
 #include "rendering/Shader.hpp"
 #include <memory>
+#include <unordered_map>
 
 class Entity {
 public:
@@ -18,6 +19,10 @@ public:
   // Draws an entity by enabling its native shader program and using the native
   // draw method on a Mesh.
   void draw();
+  // Binds entity shader for rendering
+  void bindShader();
+  // Sends dictionary of mat4 matrices and enum type to shader uniform.
+  void matrixToShader(const std::unordered_map<MVP, glm::mat4> &givenMatrices);
 
 private:
   // Represents the mesh of an entity (shape, surface, etc). Must be compatible

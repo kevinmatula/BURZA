@@ -18,9 +18,9 @@ public:
 
   // Calls glUseProgram on this local shaderProgram
   void use();
-  // Ingests a mat4 in MVP matrix & a corresponding string, and transforms
+  // Ingests a mat4 in MVP matrix & a corresponding MVP type, and transforms
   // coordinates in vertexShader. Must be using this shader program.
-  void applyMatrix(glm::mat4 matrix, MVP matrixType);
+  void applyMatrix(MVP matrixType, glm::mat4 matrix);
 
   // Protect against double-free
   Shader(const Shader &) = delete;

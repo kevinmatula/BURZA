@@ -96,7 +96,7 @@ std::string Shader::readFile(const std::filesystem::path &givenShaderFile) {
 
 void Shader::use() { glUseProgram(shaderProgram); }
 
-void Shader::applyMatrix(glm::mat4 matrix, MVP matrixName) {
+void Shader::applyMatrix(MVP matrixName, glm::mat4 matrix) {
   // DEV ONLY - Check that program is being used before assigning uniform.
   int currentProgram = 0;
   glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);

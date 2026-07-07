@@ -28,7 +28,8 @@ int main() {
   std::vector<std::shared_ptr<Entity>> entities;
   entities.push_back(sharedEntity);
 
-  Scene scene(entities);
+  Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+  Scene scene(entities, camera);
   application.loadScene(scene);
   application.run();
 }

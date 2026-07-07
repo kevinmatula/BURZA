@@ -14,7 +14,7 @@ public:
   ~Camera();
 
   // Returns a 4x4 matrix representing the view in the MVP matrix.
-  glm::mat4 returnView();
+  const glm::mat4 returnView() const;
 
 private:
   glm::vec3 position;
