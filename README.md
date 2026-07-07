@@ -21,6 +21,10 @@ BURZA is a lightweight, retro-inspired 3D engine designed around the constraints
 
 ---
 
+## Notes
+
+BURZA currently contains a temporary resident: The source code of Sarkofah. Eventually, Sarkofah will move to its own individual repository but exists here for demo testing purposes.
+
 ## References
 
 - [docs.gl](https://docs.gl/)
