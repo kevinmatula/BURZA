@@ -35,6 +35,13 @@ void Window::setGlAttributes() {
 
 void Window::swap() { SDL_GL_SwapWindow(window); }
 
+WindowSize Window::getWindowSize() const {
+  int width;
+  int height;
+  SDL_GetWindowSize(window, &width, &height);
+  return {width, height};
+}
+
 Window::~Window() {
   SDL_GL_DestroyContext(glContext);
   SDL_DestroyWindow(window);

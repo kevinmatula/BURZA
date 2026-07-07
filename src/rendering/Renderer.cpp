@@ -6,9 +6,12 @@
 #include <unordered_map>
 #include <vector>
 
-Renderer::Renderer() {
+Renderer::Renderer(WindowSize givenSize) {
   initializeGlad();
   glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
+  projection = glm::perspective(
+      glm::radians(45.0f), float(givenSize.width) / float(givenSize.height),
+      0.1f, 100.0f);
 }
 
 void Renderer::initializeGlad() {
@@ -22,7 +25,7 @@ void Renderer::draw(const Scene &scene) {
   glClear(GL_COLOR_BUFFER_BIT);
   const std::vector<std::shared_ptr<Entity>> &entities = scene.getEntities();
   std::unordered_map<MVP, glm::mat4> mvpMatrices = {
-      {MVP::View, scene.getCamera().getView()}};
+      {MVP::View, scene.getCamera().getView()}, {MVP::Projection, projection}};
   for (size_t i = 0; i < entities.size(); i++) {
     entities[i]->bindShader();
     entities[i]->matrixToShader(mvpMatrices);

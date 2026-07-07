@@ -2,6 +2,11 @@
 
 #include <SDL3/SDL.h>
 
+struct WindowSize {
+  int width;
+  int height;
+};
+
 class Window {
 public:
   // Constructor - Sets up Window & OpenGL Context
@@ -11,6 +16,8 @@ public:
 
   // Swaps the Window with the next Buffer.
   void swap();
+  // Gets a reference of the SDL window.
+  WindowSize getWindowSize() const;
 
   // Protect against double-free
   Window(const Window &) = delete;

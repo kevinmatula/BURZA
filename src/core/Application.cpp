@@ -2,7 +2,8 @@
 #include <chrono>
 using namespace std;
 
-Application::Application() : window(), renderer(), inputManager(), scene() {}
+Application::Application()
+    : window(), renderer(window.getWindowSize()), inputManager(), scene() {}
 
 void Application::run() {
   bool isRunning = true;
