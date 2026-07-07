@@ -29,7 +29,7 @@ private:
   void applyAndEnableAttributes(const std::vector<VertexAttribute> &attributes,
                                 const int vertexSize);
   // Finds the vertex size - the amount of values stored per vertex.
-  int findVertexSize(const std::vector<VertexAttribute> &attributes);
+  int computeVertexSize(const std::vector<VertexAttribute> &attributes);
 
   // Represents OpenGL Vertex Array Object & OpenGL Vertex Buffer Object.
   unsigned int VAO, VBO;

@@ -15,7 +15,7 @@ void Entity::draw() { mesh->draw(); }
 void Entity::matrixToShader(
     const std::unordered_map<MVP, glm::mat4> &mvpMatrices) {
   // Apply model manually because it is native to Entity class.
-  shader->applyMatrix(MVP::Model, transform.returnModel());
+  shader->applyMatrix(MVP::Model, transform.getModel());
   for (const auto &matrixPair : mvpMatrices) {
     shader->applyMatrix(matrixPair.first, matrixPair.second);
   }

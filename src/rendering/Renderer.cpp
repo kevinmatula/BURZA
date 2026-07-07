@@ -22,7 +22,7 @@ void Renderer::draw(const Scene &scene) {
   glClear(GL_COLOR_BUFFER_BIT);
   const std::vector<std::shared_ptr<Entity>> &entities = scene.getEntities();
   std::unordered_map<MVP, glm::mat4> mvpMatrices = {
-      {MVP::View, scene.getCamera().returnView()}};
+      {MVP::View, scene.getCamera().getView()}};
   for (size_t i = 0; i < entities.size(); i++) {
     entities[i]->bindShader();
     entities[i]->matrixToShader(mvpMatrices);

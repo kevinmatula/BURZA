@@ -9,7 +9,7 @@ Transform::Transform()
     : scale(1.0f), rotation(RotationPair(0, glm::vec3(1.0f))),
       translation(0.0f) {}
 
-glm::mat4 Transform::returnModel() {
+glm::mat4 Transform::getModel() {
   glm::mat4 modelMatrix = glm::mat4(1.0f);
   modelMatrix = glm::translate(modelMatrix, translation);
   modelMatrix = glm::rotate(modelMatrix, rotation.angle, rotation.axis);

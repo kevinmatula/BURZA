@@ -13,7 +13,7 @@ Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
                vertexData.data(), GL_STATIC_DRAW);
 
   std::vector<VertexAttribute> attributes = getVertexAttributes(format);
-  const int vertexSize = findVertexSize(attributes);
+  const int vertexSize = computeVertexSize(attributes);
   vertexCount = vertexData.size() / vertexSize;
 
   applyAndEnableAttributes(attributes, vertexSize);
@@ -53,7 +53,7 @@ void Mesh::applyAndEnableAttributes(
   }
 }
 
-int Mesh::findVertexSize(const std::vector<VertexAttribute> &attributes) {
+int Mesh::computeVertexSize(const std::vector<VertexAttribute> &attributes) {
   int vertexSize = 0;
 
   for (size_t i = 0; i < attributes.size(); i++) {

@@ -30,8 +30,7 @@ public:
   ~Transform();
 
   // Computes and returns the model as a mat4 using local scale, rot, and trans.
-  glm::mat4 returnModel();
-
+  glm::mat4 getModel();
   // Updates the Transform scale vec3 using the given scale.
   void setScale(glm::vec3 givenScale);
   // Updates the Transform rotation pair using the given rotation.
