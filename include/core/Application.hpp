@@ -29,4 +29,8 @@ private:
 
   // Represents time passed between each frame (60 FPS).
   static constexpr double timePerFrame = 1.0 / 60.0;
+
+  // Updates the game state by one frame and returns whether or not the game
+  // state is still valid.
+  bool update();
 };

@@ -15,4 +15,6 @@ const std::vector<std::shared_ptr<Entity>> &Scene::getEntities() const {
 
 const Camera &Scene::getCamera() const { return camera; }
 
+Camera &Scene::getCamera() { return camera; }
+
 Scene::~Scene() {}

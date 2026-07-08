@@ -1,4 +1,5 @@
 #include "input/InputManager.hpp"
+#include "SDL3/SDL_keyboard.h"
 
 InputManager::InputManager() : quitRequested(false) {}
 
@@ -19,6 +20,11 @@ void InputManager::pollEvent() {
         break;
     }
   }
+}
+
+bool InputManager::isKeyHeld(SDL_Scancode scancode) {
+  const bool *keyboardState = SDL_GetKeyboardState(NULL);
+  return keyboardState[scancode];
 }
 
 bool InputManager::isQuitRequested() { return quitRequested; }

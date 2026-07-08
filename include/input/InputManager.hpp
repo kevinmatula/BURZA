@@ -11,6 +11,8 @@ public:
 
   // Called by Application to check for Polled Event
   void pollEvent();
+  // Used to update alter view matrix.
+  bool isKeyHeld(SDL_Scancode scancode);
   // Getter - Returns the boolean status of quitRequested
   bool isQuitRequested();
 

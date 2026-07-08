@@ -18,7 +18,7 @@ void Window::initializeGlContext() {
 }
 
 void Window::initializeWindow() {
-  window = SDL_CreateWindow("BURZA", 600, 600,
+  window = SDL_CreateWindow("BURZA", 1500, 1000,
                             SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
   if (window == NULL) {
     SDL_Log("Window Failed to Initialize.");

@@ -21,6 +21,8 @@ public:
   const std::vector<std::shared_ptr<Entity>> &getEntities() const;
   // Returns the camera, as a const reference.
   const Camera &getCamera() const;
+  // Returns the camera by refrerence, for mutation purposes.
+  Camera &getCamera();
 
 private:
   // Represents all entities within the scene.
