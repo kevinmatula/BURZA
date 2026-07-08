@@ -13,7 +13,9 @@ set(SOURCES
     src/world/Scene.cpp
     src/world/Camera.cpp
     src/math/Transform.cpp
+    src/interface/Game.cpp
     external/glad/src/glad.c
+    sarkofah/src/Sarkofah.cpp
 )
 
 # Generate build/compile_commands.json so clangd can resolve include paths like
