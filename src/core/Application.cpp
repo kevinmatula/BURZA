@@ -35,19 +35,22 @@ bool Application::update() {
     return false;
   }
 
+  MouseDelta md = inputManager.getMouseDelta();
+  scene.getCamera().setDirection(md.dx, md.dy);
+
   // TODO: Fix hardcoded 0.01f with eventual constant/scalable number that can
   // be used in timestep.
   if (inputManager.isKeyHeld(SDL_SCANCODE_W)) {
-    scene.getCamera().moveForward(0.01f);
+    scene.getCamera().moveForward(0.02f);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_S)) {
-    scene.getCamera().moveForward(-0.01f);
+    scene.getCamera().moveForward(-0.02f);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_D)) {
-    scene.getCamera().moveRight(0.01f);
+    scene.getCamera().moveRight(0.02f);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_A)) {
-    scene.getCamera().moveRight(-0.01f);
+    scene.getCamera().moveRight(-0.02f);
   }
   return true;
 }

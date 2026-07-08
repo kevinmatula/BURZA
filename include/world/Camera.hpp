@@ -19,9 +19,17 @@ public:
   // Moves the player right by the specified amount. Note that ingested negative
   // numbers will cause the player to move backwards.
   void moveRight(float amount);
+  // Sets the camera's direction using given yaw and pitch deltas.
+  void setDirection(float yawDelta, float pitchDelta);
 
 private:
+  // Necessary vec3s representing different aspects of the camera.
   glm::vec3 position;
   glm::vec3 direction;
   glm::vec3 up;
+
+  // Represents the side-to-side direction the camera is looking
+  float yaw;
+  // Represents the up-and-down direction the camera is looking
+  float pitch;
 };
