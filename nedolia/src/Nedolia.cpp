@@ -1,8 +1,8 @@
-#include "../sarkofah/include/Sarkofah.hpp"
+#include "../nedolia/include/Nedolia.hpp"
 
-Sarkofah::Sarkofah() {}
+Nedolia::Nedolia() {}
 
-void Sarkofah::init() {
+void Nedolia::init() {
   std::vector<float> vertexData = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f,
                                    0.0f,  0.0f,  0.5f, 0.0f};
   std::shared_ptr<Mesh> sharedMesh =
@@ -22,4 +22,4 @@ void Sarkofah::init() {
   scenes.push_back(scene);
 }
 
-Sarkofah::~Sarkofah() {}
+Nedolia::~Nedolia() {}

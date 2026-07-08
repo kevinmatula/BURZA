@@ -15,7 +15,7 @@ set(SOURCES
     src/math/Transform.cpp
     src/interface/Game.cpp
     external/glad/src/glad.c
-    sarkofah/src/Sarkofah.cpp
+    nedolia/src/Nedolia.cpp
 )
 
 # Generate build/compile_commands.json so clangd can resolve include paths like

@@ -1,4 +1,4 @@
-#include "../sarkofah/include/Sarkofah.hpp"
+#include "../nedolia/include/Nedolia.hpp"
 #include "core/Application.hpp"
 #include "interface/Game.hpp"
 
@@ -6,8 +6,8 @@
 // file only exists for testing purposes.
 int main() {
   Application application;
-  std::unique_ptr<Game> sarkofah = std::make_unique<Sarkofah>();
-  sarkofah->init();
-  application.loadScene(sarkofah->getScenes().at(0));
+  std::unique_ptr<Game> nedolia = std::make_unique<Nedolia>();
+  nedolia->init();
+  application.loadScene(nedolia->getScenes().at(0));
   application.run();
 }
