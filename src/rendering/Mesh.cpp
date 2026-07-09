@@ -2,19 +2,23 @@
 #include "rendering/VertexFormat.hpp"
 #include <cstdint>
 
-Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
+Mesh::Mesh(const MeshData &vertexData, VertexFormat format) {
 
   // Generating Unique IDs for VAO & VBO.
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
+  glGenBuffers(1, &EBO);
   bind();
 
-  glBufferData(GL_ARRAY_BUFFER, (vertexData.size() * sizeof(float)),
-               vertexData.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, (vertexData.vertices.size() * sizeof(float)),
+               vertexData.vertices.data(), GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+               (vertexData.indices.size() * sizeof(unsigned int)),
+               vertexData.indices.data(), GL_STATIC_DRAW);
 
   std::vector<VertexAttribute> attributes = getVertexAttributes(format);
   const int vertexSize = computeVertexSize(attributes);
-  vertexCount = vertexData.size() / vertexSize;
+  vertexCount = vertexData.indices.size();
 
   applyAndEnableAttributes(attributes, vertexSize);
 
@@ -24,16 +28,18 @@ Mesh::Mesh(const std::vector<float> &vertexData, VertexFormat format) {
 void Mesh::bind() {
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 }
 
 void Mesh::unbind() {
   glBindVertexArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void Mesh::draw() {
   bind();
-  glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+  glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
   unbind();
 }
 
@@ -66,4 +72,5 @@ int Mesh::computeVertexSize(const std::vector<VertexAttribute> &attributes) {
 Mesh::~Mesh() {
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
+  glDeleteBuffers(1, &EBO);
 }

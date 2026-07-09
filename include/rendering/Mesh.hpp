@@ -1,13 +1,14 @@
 #pragma once
 
 #include "VertexFormat.hpp"
+#include "rendering/MeshLoader.hpp"
 #include <glad/glad.h>
 #include <vector>
 
 class Mesh {
 public:
   // Constructor - Sets up VAO & VBO, as well as VertexAttributes
-  Mesh(const std::vector<float> &vertexData, VertexFormat format);
+  Mesh(const MeshData &vertexData, VertexFormat format);
   // Destructor - Frees Memory within Mesh, destroying VAO, VBO, etc.
   ~Mesh();
 
@@ -31,8 +32,9 @@ private:
   // Finds the vertex size - the amount of values stored per vertex.
   int computeVertexSize(const std::vector<VertexAttribute> &attributes);
 
-  // Represents OpenGL Vertex Array Object & OpenGL Vertex Buffer Object.
-  unsigned int VAO, VBO;
+  // Represents OpenGL Vertex Array Object & OpenGL Vertex Buffer Object &
+  // OpenGL Element Buffer Object.
+  unsigned int VAO, VBO, EBO;
   // Represents the amount of vertices in each mesh.
   int vertexCount;
 };

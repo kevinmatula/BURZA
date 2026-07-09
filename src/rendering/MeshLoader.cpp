@@ -1,19 +1,25 @@
+#include "math/Hash.hpp"
 #include <filesystem>
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "rendering/MeshLoader.hpp"
 #include "tiny_obj_loader.h"
+#include <unordered_map>
 
 namespace MeshLoader {
-std::vector<float> load(const std::filesystem::path &fileSource,
-                        VertexFormat format) {
-  std::vector<float> vertexData;
+MeshData load(const std::filesystem::path &fileSource, VertexFormat format) {
   tinyobj::ObjReaderConfig reader_config;
   tinyobj::ObjReader reader;
 
+  std::vector<float> vertices;
+  std::vector<float> totalVertexData;
+  std::vector<unsigned int> indices;
+  // Disregarding typical concern that hashing floats is bad practice since we
+  // will only take from given models.
+  std::unordered_map<std::vector<float>, unsigned int, VectorHasher<float>>
+      vertexToIndex;
+
   if (!reader.ParseFromFile(fileSource, reader_config)) {
-    if (!reader.Error().empty()) {
-      throw std::runtime_error(std::string("TinyObjReader: " + reader.Error()));
-    }
+    throw std::runtime_error(std::string("TinyObjReader: " + reader.Error()));
   }
 
   auto &attrib = reader.GetAttrib();
@@ -25,13 +31,18 @@ std::vector<float> load(const std::filesystem::path &fileSource,
       size_t fv = size_t(shapes[s].mesh.num_face_vertices[f]);
 
       for (size_t v = 0; v < fv; v++) {
+        vertices.clear();
+
         tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
+
         tinyobj::real_t vx = attrib.vertices[3 * size_t(idx.vertex_index) + 0];
-        vertexData.push_back(vx);
+        vertices.push_back(vx);
+
         tinyobj::real_t vy = attrib.vertices[3 * size_t(idx.vertex_index) + 1];
-        vertexData.push_back(vy);
+        vertices.push_back(vy);
+
         tinyobj::real_t vz = attrib.vertices[3 * size_t(idx.vertex_index) + 2];
-        vertexData.push_back(vz);
+        vertices.push_back(vz);
 
         // TODO: ONCE SUPPORT FOR NORMAL AND (maybe) TEXTURES ARE ADDED,
         // UNCOMMENT!
@@ -53,10 +64,23 @@ std::vector<float> load(const std::filesystem::path &fileSource,
         //   tinyobj::real_t ty =
         //       attrib.texcoords[2 * size_t(idx.texcoord_index) + 1];
         // }
+
+        if (!vertexToIndex.count(vertices)) {
+          unsigned int currentSize = vertexToIndex.size();
+
+          indices.push_back(currentSize);
+          vertexToIndex.insert({vertices, currentSize});
+
+          totalVertexData.push_back(vx);
+          totalVertexData.push_back(vy);
+          totalVertexData.push_back(vz);
+        } else {
+          indices.push_back(vertexToIndex.at(vertices));
+        }
       }
       index_offset += fv;
     }
   }
-  return vertexData;
+  return MeshData(totalVertexData, indices);
 }
 } // namespace MeshLoader

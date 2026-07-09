@@ -4,7 +4,7 @@
 Nedolia::Nedolia() {}
 
 void Nedolia::init() {
-  std::vector<float> vertexData =
+  MeshData vertexData =
       MeshLoader::load("assets/models/cube.obj", VertexFormat::Position);
   std::shared_ptr<Mesh> sharedMesh =
       std::make_shared<Mesh>(vertexData, VertexFormat::Position);
