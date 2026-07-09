@@ -17,6 +17,7 @@ const glm::mat4 Camera::getView() const {
   return glm::lookAt(position, position + direction, up);
 }
 
+// TODO: Camera is currently able to free-fly in dev mode. Fix: bind position.y.
 void Camera::moveForward(float amount) { position += direction * amount; }
 
 void Camera::moveRight(float amount) {
