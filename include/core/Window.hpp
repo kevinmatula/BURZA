@@ -18,6 +18,8 @@ public:
   void swap();
   // Gets a reference of the SDL window.
   WindowSize getWindowSize() const;
+  // Sets the relative mouse mode to the given bool status.
+  void setRelativeMouseMode(bool status);
 
   // Protect against double-free
   Window(const Window &) = delete;

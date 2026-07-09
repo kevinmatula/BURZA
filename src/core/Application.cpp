@@ -1,4 +1,5 @@
 #include "core/Application.hpp"
+#include "SDL3/SDL_scancode.h"
 #include <chrono>
 using namespace std;
 
@@ -11,6 +12,7 @@ void Application::run() {
     auto start = chrono::high_resolution_clock::now();
 
     isRunning = update();
+    renderer.resize(window.getWindowSize());
     renderer.draw(scene);
     window.swap();
 
@@ -34,6 +36,9 @@ bool Application::update() {
   if (inputManager.isQuitRequested()) {
     return false;
   }
+  if (inputManager.isMouseClicked()) {
+    window.setRelativeMouseMode(true);
+  }
 
   MouseDelta md = inputManager.getMouseDelta();
   scene.getCamera().setDirection(md.dx, md.dy);
@@ -51,6 +56,9 @@ bool Application::update() {
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_A)) {
     scene.getCamera().moveRight(-0.02f);
+  }
+  if (inputManager.isKeyPressed(SDL_SCANCODE_ESCAPE)) {
+    window.setRelativeMouseMode(false);
   }
   return true;
 }

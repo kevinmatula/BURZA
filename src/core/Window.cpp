@@ -1,4 +1,5 @@
 #include "core/Window.hpp"
+#include "SDL3/SDL_mouse.h"
 #include <stdexcept>
 #include <string>
 
@@ -40,6 +41,10 @@ WindowSize Window::getWindowSize() const {
   int height;
   SDL_GetWindowSize(window, &width, &height);
   return {width, height};
+}
+
+void Window::setRelativeMouseMode(bool status) {
+  SDL_SetWindowRelativeMouseMode(window, status);
 }
 
 Window::~Window() {

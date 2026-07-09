@@ -6,12 +6,10 @@
 #include <unordered_map>
 #include <vector>
 
-Renderer::Renderer(WindowSize givenSize) {
+Renderer::Renderer(const WindowSize &givenSize) {
   initializeGlad();
   glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
-  projection = glm::perspective(
-      glm::radians(45.0f), float(givenSize.width) / float(givenSize.height),
-      0.1f, 100.0f);
+  resize(givenSize);
 }
 
 void Renderer::initializeGlad() {
@@ -31,6 +29,13 @@ void Renderer::draw(const Scene &scene) {
     entities[i]->matrixToShader(mvpMatrices);
     entities[i]->draw();
   }
+}
+
+void Renderer::resize(const WindowSize &givenSize) {
+  glViewport(0, 0, givenSize.width, givenSize.height);
+  projection = glm::perspective(
+      glm::radians(45.0f), float(givenSize.width) / float(givenSize.height),
+      0.1f, 100.0f);
 }
 
 Renderer::~Renderer() {}
