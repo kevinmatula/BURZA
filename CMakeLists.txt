@@ -14,6 +14,7 @@ set(SOURCES
     src/world/Camera.cpp
     src/math/Transform.cpp
     src/interface/Game.cpp
+    src/rendering/MeshLoader.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )
@@ -35,7 +36,7 @@ add_executable(${CMAKE_PROJECT_NAME} WIN32 ${SOURCES})
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
-    PRIVATE include external/glad/include
+    PRIVATE include external/glad/include external/tinyobjloader
 )
 
 # Link to the actual SDL3 library.
