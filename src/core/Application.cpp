@@ -8,23 +8,36 @@ Application::Application()
 
 void Application::run() {
   bool isRunning = true;
+  double accumulator = 0.0;
+  auto startTime = chrono::high_resolution_clock::now();
   while (isRunning) {
-    auto start = chrono::high_resolution_clock::now();
+    auto newTime = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = newTime - startTime;
+    double frameTime = elapsed.count();
+    // Cap frameTime if outrageous
+    if (frameTime > 0.25) {
+      frameTime = 0.25;
+    }
+    startTime = newTime;
 
-    isRunning = update();
+    accumulator += frameTime;
+
+    // TODO: once entities & rendering calculations must be done, add alpha
+    // property to timestep.
+    while (accumulator >= dt) {
+      isRunning = update();
+
+      accumulator -= dt;
+    }
     renderer.resize(window.getWindowSize());
     renderer.draw(scene);
     window.swap();
 
-    auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> elapsed = end - start;
-    double frameTime = elapsed.count();
-    if (frameTime > 0.25) {
-      frameTime = 0.25;
-    }
-    if (timePerFrame >= frameTime) {
-      SDL_Delay(
-          static_cast<uint32_t>((timePerFrame * 1000) - (frameTime * 1000)));
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double> endTimeElapsed = endTime - newTime;
+    double endTimeCount = endTimeElapsed.count();
+    if (dt >= endTimeCount) {
+      SDL_Delay(static_cast<uint32_t>((dt * 1000) - (endTimeCount * 1000)));
     }
   }
 }
@@ -43,19 +56,20 @@ bool Application::update() {
   MouseDelta md = inputManager.getMouseDelta();
   scene.getCamera().setDirection(md.dx, md.dy);
 
-  // TODO: Fix hardcoded 0.01f with eventual constant/scalable number that can
+  // TODO: Fix hardcoded 5.0f with eventual constant/scalable number that can
   // be used in timestep.
+  double cameraVel = 5.0 * dt;
   if (inputManager.isKeyHeld(SDL_SCANCODE_W)) {
-    scene.getCamera().moveForward(0.02f);
+    scene.getCamera().moveForward(cameraVel);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_S)) {
-    scene.getCamera().moveForward(-0.02f);
+    scene.getCamera().moveForward(-cameraVel);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_D)) {
-    scene.getCamera().moveRight(0.02f);
+    scene.getCamera().moveRight(cameraVel);
   }
   if (inputManager.isKeyHeld(SDL_SCANCODE_A)) {
-    scene.getCamera().moveRight(-0.02f);
+    scene.getCamera().moveRight(-cameraVel);
   }
   if (inputManager.isKeyPressed(SDL_SCANCODE_ESCAPE)) {
     window.setRelativeMouseMode(false);
