@@ -36,6 +36,8 @@ public:
   bool isQuitRequested();
   // Getter - Returns the boolean status of mouseClicked
   bool isMouseClicked();
+  // Getter - Returns the boolean status of resized;
+  bool isResized();
   // Getter - Returns the MouseDelta accumulated after each PollEvent.
   MouseDelta getMouseDelta();
 
@@ -44,6 +46,8 @@ private:
   bool quitRequested;
   // Represents if a mouse button has been pressed.
   bool mouseClicked;
+  // Represents if a user attempted to resize the window.
+  bool resized;
   // Represents the total difference of the mouses coordinates, for x & y.
   MouseDelta md;
   // Represents an unorded set of keys that were pressed during event polling.

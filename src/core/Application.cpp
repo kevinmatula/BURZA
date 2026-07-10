@@ -22,14 +22,14 @@ void Application::run() {
 
     accumulator += frameTime;
 
+    isRunning = pollInput();
     // TODO: once entities & rendering calculations must be done, add alpha
     // property to timestep.
     while (accumulator >= dt) {
-      isRunning = update();
-
+      update();
       accumulator -= dt;
     }
-    renderer.resize(window.getWindowSize());
+
     renderer.draw(scene);
     window.swap();
 
@@ -44,18 +44,9 @@ void Application::run() {
 
 void Application::loadScene(const Scene &givenScene) { scene = givenScene; }
 
-bool Application::update() {
-  inputManager.pollEvent();
-  if (inputManager.isQuitRequested()) {
-    return false;
-  }
-  if (inputManager.isMouseClicked()) {
-    window.setRelativeMouseMode(true);
-  }
-
-  MouseDelta md = inputManager.getMouseDelta();
-  scene.getCamera().setDirection(md.dx, md.dy);
-
+// TODO: These update functions should not be in application, eventually move
+// them to scene, so like scene.update(InputManager)
+void Application::update() {
   // TODO: Fix hardcoded 5.0f with eventual constant/scalable number that can
   // be used in timestep.
   double cameraVel = 5.0 * dt;
@@ -71,9 +62,25 @@ bool Application::update() {
   if (inputManager.isKeyHeld(SDL_SCANCODE_A)) {
     scene.getCamera().moveRight(-cameraVel);
   }
+}
+
+bool Application::pollInput() {
+  inputManager.pollEvent();
+  if (inputManager.isQuitRequested()) {
+    return false;
+  }
+  if (inputManager.isResized()) {
+    renderer.resize(window.getWindowSize());
+  }
+  if (inputManager.isMouseClicked()) {
+    window.setRelativeMouseMode(true);
+  }
   if (inputManager.isKeyPressed(SDL_SCANCODE_ESCAPE)) {
     window.setRelativeMouseMode(false);
   }
+
+  MouseDelta md = inputManager.getMouseDelta();
+  scene.getCamera().setDirection(md.dx, md.dy);
   return true;
 }
 

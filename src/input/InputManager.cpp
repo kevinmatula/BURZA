@@ -4,8 +4,8 @@
 #include "SDL3/SDL_scancode.h"
 
 InputManager::InputManager()
-    : quitRequested(false), mouseClicked(false), md(MouseDelta()),
-      keysPressed() {}
+    : quitRequested(false), mouseClicked(false), resized(false),
+      md(MouseDelta()), keysPressed() {}
 
 void InputManager::pollEvent() {
   SDL_Event event;
@@ -13,6 +13,7 @@ void InputManager::pollEvent() {
   md.dy = 0;
   keysPressed.clear();
   mouseClicked = false;
+  resized = false;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_EVENT_MOUSE_MOTION:
@@ -22,6 +23,9 @@ void InputManager::pollEvent() {
       case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
       case SDL_EVENT_QUIT:
         quitRequested = true;
+        break;
+      case SDL_EVENT_WINDOW_RESIZED:
+        resized = true;
         break;
       case SDL_EVENT_MOUSE_BUTTON_DOWN:
         mouseClicked = true;
@@ -49,5 +53,7 @@ MouseDelta InputManager::getMouseDelta() { return md; }
 bool InputManager::isQuitRequested() { return quitRequested; }
 
 bool InputManager::isMouseClicked() { return mouseClicked; }
+
+bool InputManager::isResized() { return resized; }
 
 InputManager::~InputManager() {}

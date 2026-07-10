@@ -30,7 +30,11 @@ private:
   // Represents time passed between each frame (60 FPS).
   static constexpr double dt = 1.0 / 60.0;
 
-  // Updates the game state by one frame and returns whether or not the game
-  // state is still valid.
-  bool update();
+  // Updates the game state by one frame. Specifically, moves the camera and
+  // associated matrices by one frame tick.
+  void update();
+
+  // Polls for events by pinging the InputManager and returns the state of the
+  // game (quit or no-quit).
+  bool pollInput();
 };
