@@ -8,6 +8,7 @@
 
 Renderer::Renderer(const WindowSize &givenSize) {
   initializeGlad();
+  glEnable(GL_CULL_FACE);
   glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
   resize(givenSize);
 }
