@@ -18,6 +18,14 @@ const glm::mat4 Camera::getView() const {
   return glm::lookAt(position, position + direction, up);
 }
 
+const glm::vec3 Camera::getPosition() const { return position; }
+
+const glm::vec3 Camera::getDirection() const { return direction; }
+
+const glm::vec3 Camera::getUp() const { return up; }
+
+const glm::vec3 Camera::getRight() const { return glm::cross(direction, up); }
+
 // NOTE: Camera is currently able to free-fly in dev mode. Fix: bind position.y.
 void Camera::moveForward(float amount) { position += direction * amount; }
 

@@ -13,6 +13,15 @@ public:
 
   // Returns a 4x4 matrix representing the view in the MVP matrix.
   const glm::mat4 getView() const;
+  // Returns the position member variable of the camera.
+  const glm::vec3 getPosition() const;
+  // Returns the direction member variable of the camera.
+  const glm::vec3 getDirection() const;
+  // Returns the up member variable of the camera.
+  const glm::vec3 getUp() const;
+  // Computes and returns the rightward vector of the camera.
+  const glm::vec3 getRight() const;
+
   // Moves the player forward by the specified amount. Note that ingested
   // negative numbers will cause the player to move backwards.
   void moveForward(float amount);
