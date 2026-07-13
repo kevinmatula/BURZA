@@ -16,9 +16,12 @@ struct RendererSettings {
   // Represents the breadth of view from the camera (in degrees).
   float fov = 45.0;
   // Represents the maximum distance the camera can look.
-  const float lookDistance = 100.0;
+  const float maxLookDistance = 100.0;
+  // Represents the starting look distance from the camera.
+  const float startingLookDistance = 0.1;
 
-  RendererSettings(float givenFOV, float givenLookDistance);
+  RendererSettings(float givenFOV, float givenStartingLookDistance,
+                   float givenMaxLookDistance);
   RendererSettings();
   ~RendererSettings();
 };

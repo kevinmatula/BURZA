@@ -38,7 +38,7 @@ void Renderer::resize(const WindowSize &givenSize) {
   glViewport(0, 0, givenSize.width, givenSize.height);
   projection = glm::perspective(
       glm::radians(rs.fov), float(givenSize.width) / float(givenSize.height),
-      0.1f, rs.lookDistance);
+      rs.startingLookDistance, rs.maxLookDistance);
 }
 
 Renderer::~Renderer() {}

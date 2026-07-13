@@ -10,8 +10,11 @@ CameraSettings::~CameraSettings() {}
 //
 
 // Renderer Settings
-RendererSettings::RendererSettings(float givenFOV, float givenLookDistance)
-    : fov(givenFOV), lookDistance(givenLookDistance) {}
+RendererSettings::RendererSettings(float givenFOV,
+                                   float givenStartingLookDistance,
+                                   float givenMaxLookDistance)
+    : fov(givenFOV), startingLookDistance(givenStartingLookDistance),
+      maxLookDistance(givenMaxLookDistance) {}
 
 RendererSettings::RendererSettings() {}
 
