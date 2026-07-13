@@ -16,6 +16,9 @@ set(SOURCES
     src/interface/Game.cpp
     src/rendering/MeshLoader.cpp
     src/config/Settings.cpp
+    src/rendering/Frustum.cpp
+    src/math/AABB.cpp
+    src/math/Plane.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )
