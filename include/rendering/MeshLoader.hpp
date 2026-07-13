@@ -6,6 +6,7 @@
 
 // Custom representation for data needed to construct a mesh, as we will be
 // using EBOs to reduce the total number of vertices needed.
+// TODO: Separate definition into cpp.
 struct MeshData {
   std::vector<float> vertices;
   std::vector<unsigned int> indices;

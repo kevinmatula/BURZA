@@ -1,10 +1,12 @@
 #include "core/Application.hpp"
 #include "SDL3/SDL_scancode.h"
+#include "config/Settings.hpp"
 #include <chrono>
 using namespace std;
 
 Application::Application()
-    : window(), renderer(window.getWindowSize()), inputManager(), scene() {}
+    : window(), renderer(window.getWindowSize()), inputManager(), scene(),
+      appSettings(Settings::getInstance().getApplicationSettings()) {}
 
 void Application::run() {
   bool isRunning = true;
@@ -25,9 +27,9 @@ void Application::run() {
     isRunning = pollInput();
     // TODO: once entities & rendering calculations must be done, add alpha
     // property to timestep.
-    while (accumulator >= dt) {
+    while (accumulator >= appSettings.dt) {
       update();
-      accumulator -= dt;
+      accumulator -= appSettings.dt;
     }
 
     renderer.draw(scene);
@@ -36,8 +38,9 @@ void Application::run() {
     auto endTime = chrono::high_resolution_clock::now();
     chrono::duration<double> endTimeElapsed = endTime - newTime;
     double endTimeCount = endTimeElapsed.count();
-    if (dt >= endTimeCount) {
-      SDL_Delay(static_cast<uint32_t>((dt * 1000) - (endTimeCount * 1000)));
+    if (appSettings.dt >= endTimeCount) {
+      SDL_Delay(static_cast<uint32_t>((appSettings.dt * 1000) -
+                                      (endTimeCount * 1000)));
     }
   }
 }
@@ -49,7 +52,7 @@ void Application::loadScene(const Scene &givenScene) { scene = givenScene; }
 void Application::update() {
   // TODO: Fix hardcoded 5.0f with eventual constant/scalable number that can
   // be used in timestep.
-  double cameraVel = 5.0 * dt;
+  double cameraVel = appSettings.movementVelocity * appSettings.dt;
   if (inputManager.isKeyHeld(SDL_SCANCODE_W)) {
     scene.getCamera().moveForward(cameraVel);
   }

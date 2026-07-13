@@ -15,6 +15,7 @@ set(SOURCES
     src/math/Transform.cpp
     src/interface/Game.cpp
     src/rendering/MeshLoader.cpp
+    src/config/Settings.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )

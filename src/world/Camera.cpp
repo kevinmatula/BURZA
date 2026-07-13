@@ -1,4 +1,5 @@
 #include "world/Camera.hpp"
+#include "config/Settings.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -17,7 +18,7 @@ const glm::mat4 Camera::getView() const {
   return glm::lookAt(position, position + direction, up);
 }
 
-// TODO: Camera is currently able to free-fly in dev mode. Fix: bind position.y.
+// NOTE: Camera is currently able to free-fly in dev mode. Fix: bind position.y.
 void Camera::moveForward(float amount) { position += direction * amount; }
 
 void Camera::moveRight(float amount) {
@@ -26,15 +27,14 @@ void Camera::moveRight(float amount) {
 }
 
 void Camera::setDirection(float yawDelta, float pitchDelta) {
-  // TODO: Make pitchDegreeClamp, SENSITIVITY available in a new settings class.
-  float sensitivity = 0.05;
-  float pitchDegreeClamp = 89.0;
-  //
+  const CameraSettings &cs = Settings::getInstance().getCameraSettings();
+  float sensitivity = cs.sensitivity;
+  float pitchClamp = cs.pitchClamp;
 
   yaw += yawDelta * sensitivity;
   // SDL coordinate system thinks that moving mouse down = positive yrel.
   float newPitch = pitch - (pitchDelta * sensitivity);
-  pitch = std::clamp(newPitch, -pitchDegreeClamp, pitchDegreeClamp);
+  pitch = std::clamp(newPitch, -pitchClamp, pitchClamp);
 
   direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
   direction.y = sin(glm::radians(pitch));

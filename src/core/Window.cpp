@@ -1,5 +1,6 @@
 #include "core/Window.hpp"
 #include "SDL3/SDL_mouse.h"
+#include "config/Settings.hpp"
 #include <stdexcept>
 #include <string>
 
@@ -19,7 +20,8 @@ void Window::initializeGlContext() {
 }
 
 void Window::initializeWindow() {
-  window = SDL_CreateWindow("BURZA", 1500, 1000,
+  const WindowSettings &ws = Settings::getInstance().getWindowSettings();
+  window = SDL_CreateWindow("BURZA", ws.defaultWidth, ws.defaultHeight,
                             SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
   if (window == NULL) {
     SDL_Log("Window Failed to Initialize.");

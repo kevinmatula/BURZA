@@ -1,5 +1,6 @@
 #pragma once
 
+#include "config/Settings.hpp"
 #include "core/ApplicationInit.hpp"
 #include "core/Window.hpp"
 #include "input/InputManager.hpp"
@@ -26,9 +27,8 @@ private:
   Renderer renderer;
   InputManager inputManager;
   Scene scene;
-
-  // Represents time passed between each frame (60 FPS).
-  static constexpr double dt = 1.0 / 60.0;
+  // Member variable that represents Application's Settings
+  const ApplicationSettings &appSettings;
 
   // Updates the game state by one frame. Specifically, moves the camera and
   // associated matrices by one frame tick.

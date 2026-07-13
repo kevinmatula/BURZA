@@ -1,4 +1,5 @@
 #include "rendering/Renderer.hpp"
+#include "config/Settings.hpp"
 #include <glad/glad.h>
 #include <memory>
 #include <stdexcept>
@@ -33,10 +34,11 @@ void Renderer::draw(const Scene &scene) {
 }
 
 void Renderer::resize(const WindowSize &givenSize) {
+  const RendererSettings &rs = Settings::getInstance().getRendererSettings();
   glViewport(0, 0, givenSize.width, givenSize.height);
   projection = glm::perspective(
-      glm::radians(45.0f), float(givenSize.width) / float(givenSize.height),
-      0.1f, 100.0f);
+      glm::radians(rs.fov), float(givenSize.width) / float(givenSize.height),
+      0.1f, rs.lookDistance);
 }
 
 Renderer::~Renderer() {}
