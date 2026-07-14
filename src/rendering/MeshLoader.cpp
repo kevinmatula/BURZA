@@ -13,6 +13,10 @@ MeshData load(const std::filesystem::path &fileSource, VertexFormat format) {
   std::vector<float> vertices;
   std::vector<float> totalVertexData;
   std::vector<unsigned int> indices;
+
+  glm::vec3 min(std::numeric_limits<float>::max());
+  glm::vec3 max(std::numeric_limits<float>::lowest());
+
   // Disregarding typical concern that hashing floats is bad practice since we
   // will only take from given models.
   std::unordered_map<std::vector<float>, unsigned int, VectorHasher<float>>
@@ -38,11 +42,29 @@ MeshData load(const std::filesystem::path &fileSource, VertexFormat format) {
         tinyobj::real_t vx = attrib.vertices[3 * size_t(idx.vertex_index) + 0];
         vertices.push_back(vx);
 
+        if (vx < min.x) {
+          min.x = vx;
+        } else if (vx > max.x) {
+          max.x = vx;
+        }
+
         tinyobj::real_t vy = attrib.vertices[3 * size_t(idx.vertex_index) + 1];
         vertices.push_back(vy);
 
+        if (vy < min.y) {
+          min.y = vy;
+        } else if (vy > max.y) {
+          max.y = vy;
+        }
+
         tinyobj::real_t vz = attrib.vertices[3 * size_t(idx.vertex_index) + 2];
         vertices.push_back(vz);
+
+        if (vz < min.z) {
+          min.z = vz;
+        } else if (vz > max.z) {
+          max.z = vz;
+        }
 
         // TODO: ONCE SUPPORT FOR NORMAL AND (maybe) TEXTURES ARE ADDED,
         // UNCOMMENT!
@@ -81,6 +103,6 @@ MeshData load(const std::filesystem::path &fileSource, VertexFormat format) {
       index_offset += fv;
     }
   }
-  return MeshData(totalVertexData, indices);
+  return MeshData(totalVertexData, indices, min, max);
 }
 } // namespace MeshLoader

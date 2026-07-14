@@ -2,8 +2,8 @@
 #include "rendering/VertexFormat.hpp"
 #include <cstdint>
 
-Mesh::Mesh(const MeshData &vertexData, VertexFormat format) {
-
+Mesh::Mesh(const MeshData &vertexData, VertexFormat format)
+    : aabb(vertexData.min, vertexData.max) {
   // Generating Unique IDs for VAO & VBO.
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
@@ -68,6 +68,8 @@ int Mesh::computeVertexSize(const std::vector<VertexAttribute> &attributes) {
 
   return vertexSize;
 }
+
+const AABB &Mesh::getAABB() const { return aabb; }
 
 Mesh::~Mesh() {
   glDeleteVertexArrays(1, &VAO);

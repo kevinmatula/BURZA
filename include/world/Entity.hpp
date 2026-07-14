@@ -23,6 +23,9 @@ public:
   void bindShader();
   // Sends dictionary of mat4 matrices and enum type to shader uniform.
   void matrixToShader(const std::unordered_map<MVP, glm::mat4> &givenMatrices);
+  // Boolean function to check if this Entity is on the given frustum; uses
+  // Delegation design pattern.
+  bool isOnFrustum(const Frustum &givenFrustum) const;
 
 private:
   // Represents the mesh of an entity (shape, surface, etc). Must be compatible

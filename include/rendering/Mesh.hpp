@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VertexFormat.hpp"
+#include "math/AABB.hpp"
 #include "rendering/MeshLoader.hpp"
 #include <glad/glad.h>
 #include <vector>
@@ -14,6 +15,8 @@ public:
 
   // Draws this Mesh onto the screen.
   void draw();
+  // Getter - Returns the AABB as a const reference.
+  const AABB &getAABB() const;
 
   // Protect against double-free
   Mesh(const Mesh &) = delete;
@@ -37,4 +40,7 @@ private:
   unsigned int VAO, VBO, EBO;
   // Represents the amount of vertices in each mesh.
   int vertexCount;
+  // Represents the AABB that surrounds the mesh. Uses the extent of the entire
+  // mesh to construct the AABB.
+  AABB aabb;
 };

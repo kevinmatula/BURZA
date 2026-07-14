@@ -23,13 +23,16 @@ void Renderer::initializeGlad() {
 
 void Renderer::draw(const Scene &scene) {
   glClear(GL_COLOR_BUFFER_BIT);
+  Frustum frustum = Frustum::createFrustumFromCamera(scene.getCamera(), aspect);
   const std::vector<std::shared_ptr<Entity>> &entities = scene.getEntities();
   std::unordered_map<MVP, glm::mat4> mvpMatrices = {
       {MVP::View, scene.getCamera().getView()}, {MVP::Projection, projection}};
   for (size_t i = 0; i < entities.size(); i++) {
-    entities[i]->bindShader();
-    entities[i]->matrixToShader(mvpMatrices);
-    entities[i]->draw();
+    if (entities[i]->isOnFrustum(frustum)) {
+      entities[i]->bindShader();
+      entities[i]->matrixToShader(mvpMatrices);
+      entities[i]->draw();
+    }
   }
 }
 
@@ -39,6 +42,7 @@ void Renderer::resize(const WindowSize &givenSize) {
   projection = glm::perspective(
       glm::radians(rs.fov), float(givenSize.width) / float(givenSize.height),
       rs.startingLookDistance, rs.maxLookDistance);
+  aspect = static_cast<float>(givenSize.width) / givenSize.height;
 }
 
 Renderer::~Renderer() {}

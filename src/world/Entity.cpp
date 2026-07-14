@@ -23,4 +23,8 @@ void Entity::matrixToShader(
 
 void Entity::bindShader() { shader->use(); }
 
+bool Entity::isOnFrustum(const Frustum &givenFrustum) const {
+  return mesh->getAABB().isOnFrustum(givenFrustum, transform);
+}
+
 Entity::~Entity() {}
