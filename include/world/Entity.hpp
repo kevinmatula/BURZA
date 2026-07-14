@@ -6,6 +6,8 @@
 #include <memory>
 #include <unordered_map>
 
+// class Entity - Represents a complete entity on screen, encapsulating the
+// mesh, shader, and Transform logic related to each entity.
 class Entity {
 public:
   // Constructor - Sets up an Entity

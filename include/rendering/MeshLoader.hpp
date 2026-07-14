@@ -5,8 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 
-// Custom representation for data needed to construct a mesh, as we will be
-// using EBOs to reduce the total number of vertices needed.
+// struct MeshData - Custom representation for data needed to construct a mesh,
+// as we will be using EBOs to reduce the total number of vertices needed.
 // TODO: Separate definition into cpp.
 struct MeshData {
   std::vector<float> vertices;
@@ -24,7 +24,8 @@ struct MeshData {
   ~MeshData() {}
 };
 
-// Namespace to hold MeshLoader free functions that are always static.
+// Namespace Meshloader - Holds MeshLoader free functions that are always
+// static.
 namespace MeshLoader {
 // Free function to take in a file path to obj files and return
 MeshData load(const std::filesystem::path &fileSource, VertexFormat format);

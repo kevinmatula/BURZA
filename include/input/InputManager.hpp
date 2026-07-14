@@ -18,6 +18,8 @@ struct MouseDelta {
   ~MouseDelta() {}
 };
 
+// class InputManager - Deals with all keyboard, mouse, and overall hardware
+// input.
 class InputManager {
 public:
   // Constructor - Sets up InputManager

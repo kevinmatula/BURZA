@@ -7,6 +7,8 @@
 #include "rendering/Renderer.hpp"
 #include "world/Scene.hpp"
 
+// Class Application - Orchestrates all subsystems to work together and make
+// engine run.
 class Application : private ApplicationInit {
 public:
   // Constructor - Sets up Application

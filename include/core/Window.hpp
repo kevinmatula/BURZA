@@ -7,6 +7,7 @@ struct WindowSize {
   int height;
 };
 
+// class Window - Deals with all windowing processes in BURZA.
 class Window {
 public:
   // Constructor - Sets up Window & OpenGL Context

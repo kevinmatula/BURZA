@@ -4,10 +4,11 @@
 #include <stdexcept>
 #include <vector>
 
-// Represents the different combinations of Vertices we can have.
+// enum class VertexFormat - Represents the different combinations of Vertices
+// we can have.
 enum class VertexFormat { Position };
 
-// Holds all pre-defined values for vertices.
+// struct VertexAttribute - Holds all pre-defined values for vertices.
 struct VertexAttribute {
   GLuint index;
   GLint size;

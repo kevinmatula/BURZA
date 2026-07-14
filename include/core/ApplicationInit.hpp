@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL3/SDL.h>
 
-// This class exists so SDL can be initialized before any other member variables
-// of Application.
+// Class ApplicationInit - This class exists so SDL can be initialized before
+// any other member variables of Application.
 class ApplicationInit {
 protected:
   // Constructor - Sets up ApplicationInit, more specifically, instantiates SDL

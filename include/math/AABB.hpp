@@ -4,6 +4,8 @@
 #include "rendering/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+// struct AABB - Represents an axis-aligned bounding box, which surrounds the
+// mesh of each entity and is crucial to the Frustum culling system.
 struct AABB {
   // Default constructor for AABB
   AABB();

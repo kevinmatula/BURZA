@@ -2,6 +2,9 @@
 
 #include <vector>
 
+// struct VectorHasher - Allows for vectors of any type to be hashed (primarily
+// used for vector<float>). Typically an anti-pattern but helpful for graphics
+// rendering because file inputs are safe.
 template <typename T> struct VectorHasher {
   std::size_t operator()(const std::vector<T> &vec) const noexcept {
     std::size_t seed = vec.size();

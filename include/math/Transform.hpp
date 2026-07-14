@@ -3,7 +3,8 @@
 #include <SDL3/SDL.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-// Custom representation for data needed to represent rotation.
+// struct RotationPair - Custom representation for data needed to represent
+// rotation.
 struct RotationPair {
   // Represents angle in which we rotate an entity.
   float angle;
@@ -19,6 +20,8 @@ struct RotationPair {
   ~RotationPair() {}
 };
 
+// class Transform - Represents the transformation applied to Meshes. Attached
+// to an Entity and primarily used to compute model matrix.
 class Transform {
 public:
   // Constructor - Sets up Transform

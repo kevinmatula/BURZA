@@ -2,6 +2,7 @@
 
 #include "world/Scene.hpp"
 
+// class Game - Parent class/Main interface for game child classes to inherit.
 class Game {
 public:
   // Default Constructor - Sets up Game class.

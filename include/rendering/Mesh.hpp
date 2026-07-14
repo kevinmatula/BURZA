@@ -6,6 +6,8 @@
 #include <glad/glad.h>
 #include <vector>
 
+// class Mesh - Represents a collection of vertex data points and works closely
+// with OpenGL.
 class Mesh {
 public:
   // Constructor - Sets up VAO & VBO, as well as VertexAttributes

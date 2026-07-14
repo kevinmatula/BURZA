@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+// class Scene - Represents a collection of entities and is meant to be how
+// environments are represented under the hood.
 class Scene {
 public:
   // Constructor - Sets up a Scene w/ entities and a camera

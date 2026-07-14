@@ -7,6 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <unordered_map>
 
+// class Shader - Uses shader files to execute OpenGL shader logic (binding,
+// building, using shader programs).
 class Shader {
 public:
   // Constructor - Sets up Vertex Shader & Fragment Shader

@@ -47,8 +47,8 @@ struct WindowSettings {
   ~WindowSettings();
 };
 
-// Meyers' Singleton design pattern - okay for config & will be enforced const
-// across engine, only mutable in one menu in game.
+// class Settings - Meyers' Singleton design pattern - okay for config & will be
+// enforced const across engine, only mutable in one menu in game.
 class Settings {
 public:
   // Delete copy constructor and assignment operators to prevent duplicates

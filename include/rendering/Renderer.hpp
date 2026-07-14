@@ -4,6 +4,8 @@
 #include "world/Scene.hpp"
 #include <SDL3/SDL.h>
 
+// class Renderer - Deals with all concepts related to rendering pixels onto the
+// screen. Orchestrates most OpenGL concepts together.
 class Renderer {
 public:
   // Constructor - Sets up Renderer

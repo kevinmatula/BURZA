@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+// class Camera - Represents the camera/player in BURZA. Games are meant to use
+// this camera for first-person gameplay.
 class Camera {
 public:
   // Default Constructor - Sets up Camera

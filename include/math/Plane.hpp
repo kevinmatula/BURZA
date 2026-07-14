@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
 
+// Struct Plane - Represents a plane in 3D space.
 struct Plane {
   // Default Constructor - sets up default plane (floor).
   Plane();
