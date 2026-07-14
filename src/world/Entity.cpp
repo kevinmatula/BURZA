@@ -15,7 +15,7 @@ void Entity::draw() { mesh->draw(); }
 void Entity::matrixToShader(
     const std::unordered_map<MVP, glm::mat4> &mvpMatrices) {
   // Apply model manually because it is native to Entity class.
-  shader->applyMatrix(MVP::Model, transform.getModel());
+  shader->applyMatrix(MVP::Model, transform.computeModel());
   for (const auto &matrixPair : mvpMatrices) {
     shader->applyMatrix(matrixPair.first, matrixPair.second);
   }
@@ -23,7 +23,7 @@ void Entity::matrixToShader(
 
 void Entity::bindShader() { shader->use(); }
 
-bool Entity::isOnFrustum(const Frustum &givenFrustum) const {
+bool Entity::isOnFrustum(const Frustum &givenFrustum) {
   return mesh->getAABB().isOnFrustum(givenFrustum, transform);
 }
 

@@ -30,7 +30,9 @@ public:
   ~Transform();
 
   // Computes and returns the model as a mat4 using local scale, rot, and trans.
-  glm::mat4 getModel() const;
+  // Only computes if transform has been changed, will alter m_dirty and model
+  // as side effect.
+  const glm::mat4 &computeModel();
   // Updates the Transform scale vec3 using the given scale.
   void setScale(glm::vec3 givenScale);
   // Updates the Transform rotation pair using the given rotation.
@@ -46,4 +48,10 @@ private:
   RotationPair rotation;
   // Represents the translation on an entity as a 3-point vector.
   glm::vec3 translation;
+
+  // Cache with invalidation pattern.
+  // Cached model matrix as to not repeatedly compute.
+  glm::mat4 model;
+  // Represents whether or not the model has changed from its previous state.
+  bool m_dirty;
 };
