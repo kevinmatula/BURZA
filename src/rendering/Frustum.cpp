@@ -13,7 +13,8 @@ Frustum Frustum::createFrustumFromCamera(const Camera &cam, float aspect) {
 
   const RendererSettings &rs = Settings::getInstance().getRendererSettings();
 
-  const float halfBackHeight = rs.maxLookDistance * tanf(rs.fov * 0.5f);
+  const float halfBackHeight =
+      rs.maxLookDistance * tanf(glm::radians(rs.fov) * 0.5f);
   const float halfBackWidth = halfBackHeight * aspect;
   const glm::vec3 camToFarRect = rs.maxLookDistance * camDirection;
 

@@ -38,9 +38,15 @@ private:
   glm::vec3 position;
   glm::vec3 direction;
   glm::vec3 up;
+  glm::vec3 right;
 
   // Represents the side-to-side direction the camera is looking
   float yaw;
   // Represents the up-and-down direction the camera is looking
   float pitch;
+
+  // Sets the rest of the basis vectors (the vectors that describe any point in
+  // space). We only set direction in setDirection, and need to also set the up
+  // and right vectors.
+  void updateBasis();
 };
