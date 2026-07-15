@@ -19,7 +19,7 @@ MeshData load(const std::filesystem::path &fileSource, VertexFormat format) {
 
   // Disregarding typical concern that hashing floats is bad practice since we
   // will only take from given models.
-  std::unordered_map<std::vector<float>, unsigned int, VectorHasher<float>>
+  std::unordered_map<std::vector<float>, unsigned int, VectorHash<float>>
       vertexToIndex;
 
   if (!reader.ParseFromFile(fileSource, reader_config)) {
