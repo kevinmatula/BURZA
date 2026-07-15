@@ -2,6 +2,7 @@
 
 #include "math/Hash.hpp"
 #include "world/ecs/EntityID.hpp"
+#include <cassert>
 #include <unordered_map>
 #include <vector>
 
@@ -20,6 +21,28 @@ template <typename T>
 class TypedComponentContainer : public ComponentContainer {
 public:
   TypedComponentContainer() : typedComponentStore() {}
+  ~TypedComponentContainer() {}
+
+  // This function fetches a given entities component according to its Id.
+  const T &fetchComponent(const EntityID &givenId) const {
+    assert(typeToStoreIndex.count(givenId));
+    return typedComponentStore.at(typeToStoreIndex.at(givenId));
+  }
+
+  // This function sets the given entity to hold the given value T.
+  void setComponent(const EntityID &givenId, const T &givenValue) {
+    assert(typeToStoreIndex.count(givenId));
+    typedComponentStore.at(typeToStoreIndex.at(givenId)) = givenValue;
+  }
+
+  // This function ingests an ID and T value and adds a component to our
+  // container.
+  void addComponent(const EntityID &givenId, const T &givenValue) {
+    assert(!typeToStoreIndex.count(givenId));
+    typedComponentStore.push_back(givenValue);
+    int valueAtIndex = typedComponentStore.size() - 1;
+    typeToStoreIndex.emplace(givenId, valueAtIndex);
+  }
 
 private:
   std::vector<T> typedComponentStore;
