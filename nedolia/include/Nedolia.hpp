@@ -9,7 +9,7 @@ public:
   // Default Constructor for Nedolia - Creates entire game.
   Nedolia();
   // Destructor for Nedolia - Frees memory for entire game.
-  ~Nedolia();
+  ~Nedolia() override;
   // Initializes all game assets, overrides init() method in Game class.
   void init() override;
 };

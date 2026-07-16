@@ -12,7 +12,7 @@ class ComponentContainer {
 public:
   // Virtual Destructor - Frees Memory within ComponentContainer, called to
   // proper subclass.
-  virtual ~ComponentContainer();
+  virtual ~ComponentContainer() = default;
 };
 
 // Class TypedComponentContainer - Templated, derived abstract class allowing
@@ -21,7 +21,7 @@ template <typename T>
 class TypedComponentContainer : public ComponentContainer {
 public:
   TypedComponentContainer() : typedComponentStore() {}
-  ~TypedComponentContainer() {}
+  ~TypedComponentContainer() override = default;
 
   // This function fetches a given entities component according to its Id.
   const T &fetchComponent(const EntityID &givenId) const {
