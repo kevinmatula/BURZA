@@ -19,6 +19,8 @@ set(SOURCES
     src/rendering/Frustum.cpp
     src/math/AABB.cpp
     src/math/Plane.cpp
+    src/world/ecs/EntityID.cpp
+    src/world/ecs/Registry.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )

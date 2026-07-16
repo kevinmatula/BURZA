@@ -6,6 +6,7 @@ struct EntityID {
   EntityID(unsigned int givenId);
   ~EntityID();
 
+  // Operator overload for == so we can check equivalency.
   bool operator==(const EntityID &rhs) const;
 
   // unchangeable id number for the entity.
