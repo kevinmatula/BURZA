@@ -19,7 +19,7 @@ public:
   ~Shader();
 
   // Calls glUseProgram on this local shaderProgram
-  void use();
+  void use() const;
   // Ingests a mat4 in MVP matrix & a corresponding MVP type, and transforms
   // coordinates in vertexShader. Must be using this shader program.
   void applyMatrix(MVP matrixType, glm::mat4 matrix);

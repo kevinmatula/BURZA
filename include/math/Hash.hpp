@@ -18,6 +18,8 @@ template <typename T> struct VectorHash {
   }
 };
 
+// struct EntityIDHash - Custom Hash function for our EntityID struct. Simply
+// hashes the unsigned int contained within the EntityID.
 struct EntityIDHash {
   std::size_t operator()(const EntityID &givenId) const noexcept {
     return std::hash<unsigned int>{}(givenId.id);

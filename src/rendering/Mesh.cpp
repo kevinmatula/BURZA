@@ -25,19 +25,19 @@ Mesh::Mesh(const MeshData &vertexData, VertexFormat format)
   unbind();
 }
 
-void Mesh::bind() {
+void Mesh::bind() const {
   glBindVertexArray(VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 }
 
-void Mesh::unbind() {
+void Mesh::unbind() const {
   glBindVertexArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Mesh::draw() {
+void Mesh::draw() const {
   bind();
   glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
   unbind();

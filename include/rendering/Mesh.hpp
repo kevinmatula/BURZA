@@ -16,7 +16,7 @@ public:
   ~Mesh();
 
   // Draws this Mesh onto the screen.
-  void draw();
+  void draw() const;
   // Getter - Returns the AABB as a const reference.
   const AABB &getAABB() const;
 
@@ -28,9 +28,9 @@ public:
 
 private:
   // Binds the Vertex Array Object and the Vertex Buffer Object.
-  void bind();
+  void bind() const;
   // Unbinds the VAO & VBO.
-  void unbind();
+  void unbind() const;
   // Applies all attributes to the vertex buffer and enables them.
   void applyAndEnableAttributes(const std::vector<VertexAttribute> &attributes,
                                 const int vertexSize);
