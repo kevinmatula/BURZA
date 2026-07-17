@@ -21,6 +21,7 @@ set(SOURCES
     src/math/Plane.cpp
     src/world/ecs/EntityID.cpp
     src/world/ecs/Registry.cpp
+    src/world/ecs/system/RenderSystem.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )

@@ -25,23 +25,29 @@ public:
 
   // This function fetches a given entities component according to its Id.
   const T &fetchComponent(const EntityID &givenId) const {
-    assert(typeToStoreIndex.count(givenId));
+    assert(hasComponent(givenId));
     return typedComponentStore.at(typeToStoreIndex.at(givenId));
   }
 
   // This function sets the given entity to hold the given value T.
   void setComponent(const EntityID &givenId, const T &givenValue) {
-    assert(typeToStoreIndex.count(givenId));
+    assert(hasComponent(givenId));
     typedComponentStore.at(typeToStoreIndex.at(givenId)) = givenValue;
   }
 
   // This function ingests an ID and T value and adds a component to our
   // container.
   void addComponent(const EntityID &givenId, const T &givenValue) {
-    assert(!typeToStoreIndex.count(givenId));
+    assert(!hasComponent(givenId));
     typedComponentStore.push_back(givenValue);
     int valueAtIndex = typedComponentStore.size() - 1;
     typeToStoreIndex.emplace(givenId, valueAtIndex);
+  }
+
+  // This function returns a boolean value that indicates if a given EntityID
+  // has a corresponding component in the Container store.
+  bool hasComponent(const EntityID &givenId) const {
+    return typeToStoreIndex.count(givenId);
   }
 
 private:

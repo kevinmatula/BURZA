@@ -42,14 +42,23 @@ public:
   // Fetches a givenComponent from our map of different ComponentContainers.
   template <typename T> const T &fetchComponent(const EntityID &givenId) const {
     assert(typeToContainer.count(typeid(T)));
-    TypedComponentContainer<T> *rawTypedContainer = getTypedContainer<T>();
+    const TypedComponentContainer<T> *rawTypedContainer =
+        getTypedContainer<T>();
     return rawTypedContainer->fetchComponent(givenId);
   }
 
+  // Fetches all EntityIDs that are tied to the given components.
+  // Uses Variadic Template. Users are meant to pass in an arbitrary amount of
+  // component types.
+  template <typename... Args> std::vector<EntityID> fetchEntitiesWith() const {
+    std::vector<EntityID> entities = allEntities;
+    (filterByComponent<Args>(entities), ...);
+    return entities;
+  }
+
 private:
-  // Total counter value corresponds to total Entities in each scene. Starts at
-  // 0.
-  unsigned int entityCounter;
+  // Vector corresponding to total Entities in each scene. EntityID starts at 0.
+  std::vector<EntityID> allEntities;
   // Hashmap that maps type_indexes (defined at runtime since abstract) to
   // pointers of our ComponentContainers.
   std::unordered_map<std::type_index, std::unique_ptr<ComponentContainer>>
@@ -72,12 +81,30 @@ private:
   template <typename T>
   const TypedComponentContainer<T> *getTypedContainer() const {
     std::type_index componentIndex = typeid(T);
-    ComponentContainer *rawContainer = typeToContainer.at(componentIndex).get();
+    const ComponentContainer *rawContainer =
+        typeToContainer.at(componentIndex).get();
 
-    TypedComponentContainer<T> *rawTypedContainer =
-        dynamic_cast<TypedComponentContainer<T> *>(rawContainer);
+    const TypedComponentContainer<T> *rawTypedContainer =
+        dynamic_cast<const TypedComponentContainer<T> *>(rawContainer);
 
     assert(rawTypedContainer != nullptr);
     return rawTypedContainer;
+  }
+
+  // Sets the given argument to a subset of givenEntities representing
+  // the list of all givenEntities that have components of type T.
+  template <typename T>
+  void filterByComponent(std::vector<EntityID> &givenEntities) const {
+    std::vector<EntityID> newEntities;
+    const TypedComponentContainer<T> *rawTypedContainer =
+        getTypedContainer<T>();
+
+    for (EntityID entity : givenEntities) {
+      if (rawTypedContainer->hasComponent(entity)) {
+        newEntities.push_back(entity);
+      }
+    }
+
+    givenEntities = newEntities;
   }
 };

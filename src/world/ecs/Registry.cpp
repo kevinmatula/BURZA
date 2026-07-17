@@ -1,11 +1,12 @@
 #include "world/ecs/Registry.hpp"
 
-Registry::Registry() : entityCounter(0) {}
+Registry::Registry() : allEntities() {}
 
 EntityID Registry::createEntity() {
-  unsigned int oldCounter = entityCounter;
-  entityCounter++;
-  return EntityID(oldCounter);
+  EntityID newEntity =
+      allEntities.empty() ? EntityID(0) : EntityID(allEntities.back().id + 1);
+  allEntities.push_back(newEntity);
+  return newEntity;
 }
 
 Registry::~Registry() {}
