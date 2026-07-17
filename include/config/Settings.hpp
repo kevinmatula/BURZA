@@ -42,6 +42,10 @@ struct WindowSettings {
   const int defaultWidth = 1500;
   const int defaultHeight = 1000;
 
+  // Represents the current width and height of the game respectively.
+  int currentWidth = defaultWidth;
+  int currentHeight = defaultHeight;
+
   WindowSettings(int givenDefaultWidth, int givenDefaultHeight);
   WindowSettings();
   ~WindowSettings();
@@ -58,9 +62,7 @@ public:
   Settings &operator=(Settings &&) = delete;
 
   // Public static method to get the unique instance
-  // NOTE: non-const getInstance will need to be created when settings menu
-  // exists.
-  static const Settings &getInstance();
+  static const Settings &getReadInstance();
 
   // Getter for all settings. Setters for specific settings within each
   // individual struct.
@@ -69,11 +71,27 @@ public:
   const ApplicationSettings &getApplicationSettings() const;
   const WindowSettings &getWindowSettings() const;
 
+  // Renderer needs to update currentWidth & currentHeight on window resize.
+  friend class Renderer;
+
 private:
   // Constructor - Private for Singleton Pattern.
   Settings();
   // Destructor - Private for Singleton Pattern.
   ~Settings() = default;
+
+  // Internal Instance represents the sole static instance of the settings
+  // class. Read-and-write getters alike can call this and return the reference
+  // of their choosing.
+  static Settings &internalInstance();
+  // Mutable Instance only offered to friends (renderer & eventual settings
+  // page).
+  static Settings &getMutableInstance();
+
+  // Sets the current size of the width and height of the window.
+  void setWindowCurrentSize(int width, int height);
+
+  // Specific Groups of Settings.
   CameraSettings cameraSettings;
   RendererSettings rendererSettings;
   ApplicationSettings applicationSettings;

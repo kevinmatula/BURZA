@@ -46,10 +46,12 @@ Settings::Settings()
     : cameraSettings(), rendererSettings(), applicationSettings(),
       windowSettings() {}
 
-const Settings &Settings::getInstance() {
+Settings &Settings::internalInstance() {
   static Settings instance;
   return instance;
 }
+
+const Settings &Settings::getReadInstance() { return internalInstance(); }
 
 const CameraSettings &Settings::getCameraSettings() const {
   return cameraSettings;
@@ -65,4 +67,11 @@ const ApplicationSettings &Settings::getApplicationSettings() const {
 
 const WindowSettings &Settings::getWindowSettings() const {
   return windowSettings;
+}
+
+Settings &Settings::getMutableInstance() { return internalInstance(); }
+
+void Settings::setWindowCurrentSize(int width, int height) {
+  windowSettings.currentWidth = width;
+  windowSettings.currentHeight = height;
 }

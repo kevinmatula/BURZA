@@ -34,7 +34,7 @@ void Camera::moveForward(float amount) { position += direction * amount; }
 void Camera::moveRight(float amount) { position += right * amount; }
 
 void Camera::setDirection(float yawDelta, float pitchDelta) {
-  const CameraSettings &cs = Settings::getInstance().getCameraSettings();
+  const CameraSettings &cs = Settings::getReadInstance().getCameraSettings();
   float sensitivity = cs.sensitivity;
   float pitchClamp = cs.pitchClamp;
 

@@ -37,8 +37,13 @@ void Renderer::draw(const Scene &scene) {
 }
 
 void Renderer::resize(const WindowSize &givenSize) {
-  const RendererSettings &rs = Settings::getInstance().getRendererSettings();
+  Settings &mutableSettings = Settings::getMutableInstance();
+
   glViewport(0, 0, givenSize.width, givenSize.height);
+  mutableSettings.setWindowCurrentSize(givenSize.width, givenSize.height);
+
+  const RendererSettings &rs =
+      Settings::getReadInstance().getRendererSettings();
   projection = glm::perspective(
       glm::radians(rs.fov), float(givenSize.width) / float(givenSize.height),
       rs.startingLookDistance, rs.maxLookDistance);

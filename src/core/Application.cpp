@@ -6,7 +6,7 @@ using namespace std;
 
 Application::Application()
     : window(), renderer(window.getWindowSize()), inputManager(), scene(),
-      appSettings(Settings::getInstance().getApplicationSettings()) {}
+      appSettings(Settings::getReadInstance().getApplicationSettings()) {}
 
 void Application::run() {
   bool isRunning = true;

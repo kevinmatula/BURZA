@@ -20,7 +20,7 @@ void Window::initializeGlContext() {
 }
 
 void Window::initializeWindow() {
-  const WindowSettings &ws = Settings::getInstance().getWindowSettings();
+  const WindowSettings &ws = Settings::getReadInstance().getWindowSettings();
   window = SDL_CreateWindow("BURZA", ws.defaultWidth, ws.defaultHeight,
                             SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
   if (window == NULL) {
