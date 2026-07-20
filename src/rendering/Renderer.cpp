@@ -26,14 +26,6 @@ void Renderer::resize(const WindowSize &givenSize) {
 
   glViewport(0, 0, givenSize.width, givenSize.height);
   mutableSettings.setWindowCurrentSize(givenSize.width, givenSize.height);
-
-  // TODO: remove once ECS commit is created.
-  const RendererSettings &rs =
-      Settings::getReadInstance().getRendererSettings();
-  projection = glm::perspective(
-      glm::radians(rs.fov), float(givenSize.width) / float(givenSize.height),
-      rs.startingLookDistance, rs.maxLookDistance);
-  aspect = static_cast<float>(givenSize.width) / givenSize.height;
 }
 
 Renderer::~Renderer() {}

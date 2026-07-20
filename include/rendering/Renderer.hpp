@@ -22,10 +22,4 @@ public:
 private:
   // Private Function to Initialize & Check that Glad is Valid.
   void initializeGlad();
-
-  // Member variable representing the mat4 projection matrix.
-  glm::mat4 projection;
-
-  // Represents the aspect ratio of the screen being rendered.
-  float aspect;
 };
