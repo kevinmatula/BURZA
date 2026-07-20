@@ -25,14 +25,13 @@ void Application::run() {
     accumulator += frameTime;
 
     isRunning = pollInput();
-    // TODO: once entities & rendering calculations must be done, add alpha
-    // property to timestep.
+    // TODO: once entities & rendering calculations done, add alpha to timestep.
     while (accumulator >= appSettings.dt) {
       update();
       accumulator -= appSettings.dt;
     }
 
-    renderer.draw(scene);
+    renderer.clear();
     window.swap();
 
     auto endTime = chrono::high_resolution_clock::now();
@@ -50,8 +49,6 @@ void Application::loadScene(const Scene &givenScene) { scene = givenScene; }
 // TODO: These update functions should not be in application, eventually move
 // them to scene, so like scene.update(InputManager)
 void Application::update() {
-  // TODO: Fix hardcoded 5.0f with eventual constant/scalable number that can
-  // be used in timestep.
   double cameraVel = appSettings.movementVelocity * appSettings.dt;
   if (inputManager.isKeyHeld(SDL_SCANCODE_W)) {
     scene.getCamera().moveForward(cameraVel);

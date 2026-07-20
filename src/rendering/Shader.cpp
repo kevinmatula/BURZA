@@ -96,14 +96,14 @@ std::string Shader::readFile(const std::filesystem::path &givenShaderFile) {
 
 void Shader::use() const { glUseProgram(shaderProgram); }
 
-void Shader::applyMatrix(MVP matrixName, glm::mat4 matrix) {
+void Shader::applyMatrix(MVP matrixName, const glm::mat4 &matrix) const {
   // DEV ONLY - Check that program is being used before assigning uniform.
   int currentProgram = 0;
   glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
   assert(shaderProgram == currentProgram);
   //
 
-  glUniformMatrix4fv(mvpMatrices[matrixName], 1, GL_FALSE,
+  glUniformMatrix4fv(mvpMatrices.at(matrixName), 1, GL_FALSE,
                      glm::value_ptr(matrix));
 }
 

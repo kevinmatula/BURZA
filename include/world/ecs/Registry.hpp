@@ -1,7 +1,7 @@
 #pragma once
 
 #include "EntityID.hpp"
-#include "world/ecs/ComponentContainer.hpp"
+#include "world/ecs/component/ComponentContainer.hpp"
 #include <cassert>
 #include <memory>
 #include <typeindex>
@@ -39,12 +39,27 @@ public:
     }
   }
 
-  // Fetches a givenComponent from our map of different ComponentContainers.
+  // Fetches a const Component from our map of different ComponentContainers.
   template <typename T> const T &fetchComponent(const EntityID &givenId) const {
     assert(typeToContainer.count(typeid(T)));
     const TypedComponentContainer<T> *rawTypedContainer =
         getTypedContainer<T>();
     return rawTypedContainer->fetchComponent(givenId);
+  }
+
+  // Fetches a non-const Component from our map of different
+  // ComponentContainers.
+  template <typename T> T &fetchComponent(const EntityID &givenId) {
+    assert(typeToContainer.count(typeid(T)));
+    TypedComponentContainer<T> *rawTypedContainer = getTypedContainer<T>();
+    return rawTypedContainer->fetchComponent(givenId);
+  }
+
+  template <typename T> const T &fetchSingleComponent() const {
+    assert(typeToContainer.count(typeid(T)));
+    const TypedComponentContainer<T> *rawTypedContainer =
+        getTypedContainer<T>();
+    return rawTypedContainer->fetchSingleComponent();
   }
 
   // Fetches all EntityIDs that are tied to the given components.

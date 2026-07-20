@@ -22,7 +22,7 @@ public:
   void use() const;
   // Ingests a mat4 in MVP matrix & a corresponding MVP type, and transforms
   // coordinates in vertexShader. Must be using this shader program.
-  void applyMatrix(MVP matrixType, glm::mat4 matrix);
+  void applyMatrix(MVP matrixType, const glm::mat4 &matrix) const;
 
   // Protect against double-free
   Shader(const Shader &) = delete;

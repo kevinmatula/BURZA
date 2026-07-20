@@ -23,8 +23,15 @@ public:
   TypedComponentContainer() : typedComponentStore() {}
   ~TypedComponentContainer() override = default;
 
-  // This function fetches a given entities component according to its Id.
+  // This function fetches a const version of a given entities component
+  // according to its Id.
   const T &fetchComponent(const EntityID &givenId) const {
+    assert(hasComponent(givenId));
+    return typedComponentStore.at(typeToStoreIndex.at(givenId));
+  }
+
+  // This function fetches a given entities component according to its Id.
+  T &fetchComponent(const EntityID &givenId) {
     assert(hasComponent(givenId));
     return typedComponentStore.at(typeToStoreIndex.at(givenId));
   }
@@ -48,6 +55,15 @@ public:
   // has a corresponding component in the Container store.
   bool hasComponent(const EntityID &givenId) const {
     return typeToStoreIndex.count(givenId);
+  }
+
+  // This function returns its single EntityID, assuming that it only has one
+  // value in the hashmap. This function is specifically for special components
+  // (i.e., Camera) where there should typically only be one.
+  const T &fetchSingleComponent() const {
+    assert(!typeToStoreIndex.empty() && typeToStoreIndex.size() == 1);
+    EntityID id = typeToStoreIndex.begin()->first;
+    return typedComponentStore.at(typeToStoreIndex.at(id));
   }
 
 private:

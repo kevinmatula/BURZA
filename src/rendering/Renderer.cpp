@@ -1,15 +1,13 @@
 #include "rendering/Renderer.hpp"
 #include "config/Settings.hpp"
 #include <glad/glad.h>
-#include <memory>
 #include <stdexcept>
 #include <string>
-#include <unordered_map>
-#include <vector>
 
 Renderer::Renderer(const WindowSize &givenSize) {
   initializeGlad();
   glEnable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
   glClearColor(0.7f, 0.9f, 0.1f, 1.0f);
   resize(givenSize);
 }
@@ -21,20 +19,7 @@ void Renderer::initializeGlad() {
   }
 }
 
-void Renderer::draw(const Scene &scene) {
-  glClear(GL_COLOR_BUFFER_BIT);
-  Frustum frustum = Frustum::createFrustumFromCamera(scene.getCamera(), aspect);
-  const std::vector<std::shared_ptr<Entity>> &entities = scene.getEntities();
-  std::unordered_map<MVP, glm::mat4> mvpMatrices = {
-      {MVP::View, scene.getCamera().getView()}, {MVP::Projection, projection}};
-  for (size_t i = 0; i < entities.size(); i++) {
-    if (entities[i]->isOnFrustum(frustum)) {
-      entities[i]->bindShader();
-      entities[i]->matrixToShader(mvpMatrices);
-      entities[i]->draw();
-    }
-  }
-}
+void Renderer::clear() { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); }
 
 void Renderer::resize(const WindowSize &givenSize) {
   Settings &mutableSettings = Settings::getMutableInstance();
@@ -42,6 +27,7 @@ void Renderer::resize(const WindowSize &givenSize) {
   glViewport(0, 0, givenSize.width, givenSize.height);
   mutableSettings.setWindowCurrentSize(givenSize.width, givenSize.height);
 
+  // TODO: remove once ECS commit is created.
   const RendererSettings &rs =
       Settings::getReadInstance().getRendererSettings();
   projection = glm::perspective(
