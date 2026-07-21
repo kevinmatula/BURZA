@@ -9,7 +9,6 @@ set(SOURCES
     src/rendering/Shader.cpp
     src/rendering/Mesh.cpp
     src/input/InputManager.cpp
-    src/world/Entity.cpp
     src/world/Scene.cpp
     src/world/Camera.cpp
     src/math/Transform.cpp
