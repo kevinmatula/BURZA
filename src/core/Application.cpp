@@ -32,6 +32,7 @@ void Application::run() {
     }
 
     renderer.clear();
+    scene.update();
     window.swap();
 
     auto endTime = chrono::high_resolution_clock::now();
