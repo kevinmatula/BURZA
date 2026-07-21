@@ -1,20 +1,14 @@
 #include "world/Scene.hpp"
+#include <memory>
 
-Scene::Scene(const std::vector<std::shared_ptr<Entity>> &givenEntities)
-    : entities(givenEntities), camera() {}
-
-Scene::Scene(const std::vector<std::shared_ptr<Entity>> &givenEntities,
-             const Camera &givenCamera)
-    : entities(givenEntities), camera(givenCamera) {}
+Scene::Scene(Registry givenRegistry,
+             std::vector<std::unique_ptr<System>> givenSystems)
+    : registry(std::move(givenRegistry)), systems(std::move(givenSystems)) {}
 
 Scene::Scene() {}
 
-const std::vector<std::shared_ptr<Entity>> &Scene::getEntities() const {
-  return entities;
+void Scene::update() {
+  for (std::unique_ptr<System> &system : systems) {
+    system->update(registry);
+  }
 }
-
-const Camera &Scene::getCamera() const { return camera; }
-
-Camera &Scene::getCamera() { return camera; }
-
-Scene::~Scene() {}

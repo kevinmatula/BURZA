@@ -1,34 +1,27 @@
 #pragma once
 
-#include "world/Camera.hpp"
-#include "world/Entity.hpp"
+#include "world/ecs/Registry.hpp"
+#include "world/ecs/system/System.hpp"
 #include <memory>
 #include <vector>
 
-// class Scene - Represents a collection of entities and is meant to be how
-// environments are represented under the hood.
+// class Scene - Uses ECS and holds a collection of systems and a registry
+// connecting those system to entities.
 class Scene {
 public:
-  // Constructor - Sets up a Scene w/ entities and a camera
-  Scene(const std::vector<std::shared_ptr<Entity>> &givenEntities,
-        const Camera &givenCamera);
-  // Overloaded constructor - Sets up a Scene w/ entities and default camera
-  Scene(const std::vector<std::shared_ptr<Entity>> &givenEntities);
-  // Overloaded default constructor for initilization
+  // Constructor - Sets up a Scene w/ a Registry & corresponding Systems.
+  Scene(Registry givenRegistry,
+        std::vector<std::unique_ptr<System>> givenSystems);
+  // Default Constructor - Sets up a completely blank scene.
   Scene();
-  // Destructor - Frees Memory within Scene
-  ~Scene();
+  // Destructor - Auto-generated to retain move operator.
 
-  // Returns all entities present in scene, as a const reference.
-  const std::vector<std::shared_ptr<Entity>> &getEntities() const;
-  // Returns the camera, as a const reference.
-  const Camera &getCamera() const;
-  // Returns the camera by refrerence, for mutation purposes.
-  Camera &getCamera();
+  // Calls update() on all subsystems.
+  void update();
 
 private:
-  // Represents all entities within the scene.
-  std::vector<std::shared_ptr<Entity>> entities;
-  // Represents the camera within the scene.
-  Camera camera;
+  // Represents the scenes registry: the collection of components and entities.
+  Registry registry;
+  // Represents the collection of system for this scene.
+  std::vector<std::unique_ptr<System>> systems;
 };

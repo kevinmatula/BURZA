@@ -12,9 +12,9 @@ public:
 
   // Initializes all Game scenes & assets, subclasses must provide init method.
   virtual void init() = 0;
-  // Returns const reference to std::vector<Scene>, universal implementation in
+  // Returns write-access std::vector<Scene>, universal implementation in
   // Game.cpp
-  const std::vector<Scene> &getScenes();
+  Scene getScene(size_t givenIndex);
 
 protected:
   // Represents all scenes within Game.

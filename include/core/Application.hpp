@@ -19,7 +19,7 @@ public:
   // Spins up the engine & runs the main game loop.
   void run();
   // Loads a given scene onto the application.
-  void loadScene(const Scene &givenScene);
+  void loadScene(Scene givenScene);
 
 private:
   // Our Application is built off the following system-critical classes. These

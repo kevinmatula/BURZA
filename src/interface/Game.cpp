@@ -2,6 +2,9 @@
 
 Game::Game() {}
 
-const std::vector<Scene> &Game::getScenes() { return scenes; }
+Scene Game::getScene(size_t givenIndex) {
+  assert(scenes.size() > givenIndex);
+  return std::move(scenes[givenIndex]);
+}
 
 Game::~Game() {}

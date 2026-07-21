@@ -8,6 +8,6 @@ int main() {
   Application application;
   std::unique_ptr<Game> nedolia = std::make_unique<Nedolia>();
   nedolia->init();
-  application.loadScene(nedolia->getScenes().at(0));
+  application.loadScene(nedolia->getScene(0));
   application.run();
 }

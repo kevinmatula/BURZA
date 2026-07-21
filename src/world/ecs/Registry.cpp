@@ -9,5 +9,3 @@ EntityID Registry::createEntity() {
   allEntities.push_back(newEntity);
   return newEntity;
 }
-
-Registry::~Registry() {}

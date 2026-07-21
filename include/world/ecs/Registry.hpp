@@ -12,8 +12,7 @@ class Registry {
 public:
   // Constructor - Sets up Registry
   Registry();
-  // Destructor - Frees Memory within Registry
-  ~Registry();
+  // Destructor - Auto-generated to retain move operator.
 
   // Creates a new entity by allocating a new EntityID (side effect of
   // increasing counter).
