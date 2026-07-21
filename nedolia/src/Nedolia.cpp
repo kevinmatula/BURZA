@@ -27,12 +27,14 @@ void Nedolia::init() {
   Camera camera(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 
   Registry reg;
+  EntityID camEntity = reg.createEntity();
   EntityID e1 = reg.createEntity();
+
+  reg.addComponent(camEntity, camera);
 
   reg.addComponent(e1, meshComp);
   reg.addComponent(e1, shaderComp);
   reg.addComponent(e1, transform);
-  reg.addComponent(e1, camera);
 
   std::vector<std::unique_ptr<System>> systems;
   systems.push_back(std::make_unique<RenderSystem>());
