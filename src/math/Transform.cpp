@@ -39,5 +39,3 @@ void Transform::setTranslation(glm::vec3 givenTranslation) {
   translation = givenTranslation;
   m_dirty = true;
 }
-
-Transform::~Transform() {}

@@ -84,5 +84,3 @@ bool Application::pollInput() {
   // scene.getCamera().setDirection(md.dx, md.dy);
   return true;
 }
-
-Application::~Application() {}

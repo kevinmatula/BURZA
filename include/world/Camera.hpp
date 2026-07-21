@@ -10,8 +10,6 @@ public:
   Camera();
   // Overload Constructor - Takes in some values and sets up Camera accordingly.
   Camera(glm::vec3 position, glm::vec3 direction);
-  // Destructor - Frees up memory within Renderer.
-  ~Camera();
 
   // Returns a 4x4 matrix representing the view in the MVP matrix.
   const glm::mat4 getView() const;

@@ -3,9 +3,8 @@
 // class EntityID - Represents the ID number for any given entity.
 class EntityID {
 public:
-  // Constructor & Destructor
+  // Constructor
   EntityID(unsigned int givenId);
-  ~EntityID();
 
   // Operator overload for == so we can check equivalency.
   bool operator==(const EntityID &rhs) const;

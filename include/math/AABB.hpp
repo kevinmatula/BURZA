@@ -18,9 +18,6 @@ struct AABB {
   // X, Y, and Z.
   AABB(const glm::vec3 &center, float givenIx, float givenIy, float givenIz);
 
-  // Default destructor for AABB - Frees memory within AABB.
-  ~AABB();
-
   // Checks if this AABB exists on the given Frustum by transforming local
   // position to global and checking that it is within each plane in the
   // frustum.

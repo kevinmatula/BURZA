@@ -52,5 +52,3 @@ bool AABB::isOnOrForwardPlane(const Plane &plane) const {
                   (extents.z * std::abs(plane.normal.z));
   return -r <= plane.getSignedDistanceToPlane(center);
 }
-
-AABB::~AABB() {}

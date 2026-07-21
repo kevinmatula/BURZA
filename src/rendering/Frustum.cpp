@@ -33,5 +33,3 @@ Frustum Frustum::createFrustumFromCamera(const Camera &cam, float aspect) {
 
   return frustum;
 }
-
-Frustum::~Frustum() {}

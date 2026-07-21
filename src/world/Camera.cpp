@@ -56,5 +56,3 @@ void Camera::updateBasis() {
   right = glm::normalize(glm::cross(direction, worldUp));
   up = glm::normalize(glm::cross(right, direction));
 }
-
-Camera::~Camera() {}

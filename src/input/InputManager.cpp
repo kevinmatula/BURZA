@@ -55,5 +55,3 @@ bool InputManager::isQuitRequested() { return quitRequested; }
 bool InputManager::isMouseClicked() { return mouseClicked; }
 
 bool InputManager::isResized() { return resized; }
-
-InputManager::~InputManager() {}

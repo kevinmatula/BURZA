@@ -9,5 +9,3 @@ Plane::Plane(const glm::vec3 &givenPoint, const glm::vec3 &givenNorm)
 float Plane::getSignedDistanceToPlane(const glm::vec3 &givenPoint) const {
   return glm::dot(normal, givenPoint) - distance;
 }
-
-Plane::~Plane() {}

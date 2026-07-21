@@ -14,8 +14,6 @@ struct MouseDelta {
   MouseDelta(int dxGiven, int dyGiven) : dx(dxGiven), dy(dyGiven) {}
   // Overload Constructor - Defualt
   MouseDelta() : dx(0), dy(0) {}
-  // Destructor
-  ~MouseDelta() {}
 };
 
 // class InputManager - Deals with all keyboard, mouse, and overall hardware
@@ -24,8 +22,6 @@ class InputManager {
 public:
   // Constructor - Sets up InputManager
   InputManager();
-  // Destructor - Frees Memory within InputManager
-  ~InputManager();
 
   // Called by Application to check for Polled Event
   void pollEvent();

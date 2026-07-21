@@ -50,5 +50,3 @@ glm::mat4 RenderSystem::calculateProjection() const {
       rs.startingLookDistance, rs.maxLookDistance);
   return projection;
 }
-
-RenderSystem::~RenderSystem() {}

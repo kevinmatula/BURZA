@@ -16,9 +16,8 @@ struct Frustum {
   Plane farFace;
   Plane nearFace;
 
-  // Constructor & Destructor
+  // Constructor
   Frustum();
-  ~Frustum();
 
   // Ingests a camera & aspect ratio as arguments and creates a Frustum for
   // culling in our rendering pipeline.

@@ -13,8 +13,6 @@ class Application : private ApplicationInit {
 public:
   // Constructor - Sets up Application
   Application();
-  // Destructor - Frees all data within Application
-  ~Application();
 
   // Spins up the engine & runs the main game loop.
   void run();

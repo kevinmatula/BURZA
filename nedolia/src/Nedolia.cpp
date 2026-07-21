@@ -38,5 +38,3 @@ void Nedolia::init() {
   systems.push_back(std::make_unique<RenderSystem>());
   scenes.push_back(Scene(std::move(reg), std::move(systems)));
 }
-
-Nedolia::~Nedolia() {}

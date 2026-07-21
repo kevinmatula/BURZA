@@ -10,8 +10,6 @@ class Renderer {
 public:
   // Constructor - Sets up Renderer
   Renderer(const WindowSize &givenSize);
-  // Destructor - Frees Memory within Renderer
-  ~Renderer();
 
   // Clears OpenGL Variables for each tick. Unrelated to Entity Rendering but
   // paramount to actual rendering pipeline.

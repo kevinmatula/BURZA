@@ -7,7 +7,6 @@
 
 // struct MeshData - Custom representation for data needed to construct a mesh,
 // as we will be using EBOs to reduce the total number of vertices needed.
-// TODO: Separate definition into cpp.
 struct MeshData {
   std::vector<float> vertices;
   std::vector<unsigned int> indices;
@@ -20,8 +19,6 @@ struct MeshData {
            const glm::vec3 &givenMin, const glm::vec3 &givenMax)
       : vertices(givenVertices), indices(givenIndices), min(givenMin),
         max(givenMax) {}
-  // Destructor
-  ~MeshData() {}
 };
 
 // Namespace Meshloader - Holds MeshLoader free functions that are always

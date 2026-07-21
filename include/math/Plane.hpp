@@ -8,8 +8,6 @@ struct Plane {
   // Custom overloaded constructor - takes in an arbitrary point and the given
   // normal and constructs a Plane object.
   Plane(const glm::vec3 &givenPoint, const glm::vec3 &givenNormal);
-  // Destructor - frees memory within Plane.
-  ~Plane();
 
   // This function returns the distance between the given point and the plane.
   float getSignedDistanceToPlane(const glm::vec3 &givenPoint) const;

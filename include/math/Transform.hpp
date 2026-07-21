@@ -16,8 +16,6 @@ struct RotationPair {
       : angle(givenAngle), axis(givenAxis) {}
   // Overload Constructor - Defualt
   RotationPair() {}
-  // Destructor
-  ~RotationPair() {}
 };
 
 // class Transform - Represents the transformation applied to Meshes. Attached
@@ -29,8 +27,6 @@ public:
             glm::vec3 givenTranslation);
   // Overload Constructor - Sets up default Transform
   Transform();
-  // Destructor - Frees Memory within Transform
-  ~Transform();
 
   // Computes and returns the model as a mat4 using local scale, rot, and trans.
   // Only computes if transform has been changed, will alter m_dirty and model

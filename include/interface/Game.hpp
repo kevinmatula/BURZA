@@ -5,10 +5,10 @@
 // class Game - Parent class/Main interface for game child classes to inherit.
 class Game {
 public:
-  // Default Constructor - Sets up Game class.
+  // Default Constructor.
   Game();
   // Virtual Destructor - Frees Memory within Game, called to proper subclass.
-  virtual ~Game();
+  virtual ~Game() = default;
 
   // Initializes all Game scenes & assets, subclasses must provide init method.
   virtual void init() = 0;

@@ -27,5 +27,3 @@ void Renderer::resize(const WindowSize &givenSize) {
   glViewport(0, 0, givenSize.width, givenSize.height);
   mutableSettings.setWindowCurrentSize(givenSize.width, givenSize.height);
 }
-
-Renderer::~Renderer() {}
