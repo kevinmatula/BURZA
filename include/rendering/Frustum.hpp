@@ -1,3 +1,5 @@
+#pragma once
+
 #include "math/Plane.hpp"
 #include "world/Camera.hpp"
 
