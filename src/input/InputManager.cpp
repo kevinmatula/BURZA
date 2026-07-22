@@ -55,3 +55,7 @@ bool InputManager::isQuitRequested() { return quitRequested; }
 bool InputManager::isMouseClicked() { return mouseClicked; }
 
 bool InputManager::isResized() { return resized; }
+
+InputState InputManager::getInputState() {
+  return InputState(SDL_GetKeyboardState(NULL), md);
+}

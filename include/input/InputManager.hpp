@@ -1,20 +1,9 @@
 #pragma once
 
+#include "input/InputState.hpp"
+#include "input/MouseDelta.hpp"
 #include <SDL3/SDL.h>
 #include <unordered_set>
-
-// Custom representation for data needed to represent rotation.
-struct MouseDelta {
-  // Represents the difference in motion for the x axis.
-  int dx;
-  // Represents the difference in motion for the y axis.
-  int dy;
-
-  // Constructor
-  MouseDelta(int dxGiven, int dyGiven) : dx(dxGiven), dy(dyGiven) {}
-  // Overload Constructor - Defualt
-  MouseDelta() : dx(0), dy(0) {}
-};
 
 // class InputManager - Deals with all keyboard, mouse, and overall hardware
 // input.
@@ -38,6 +27,8 @@ public:
   bool isResized();
   // Getter - Returns the MouseDelta accumulated after each PollEvent.
   MouseDelta getMouseDelta();
+  // Getter - Returns a snapshot of a frame's current input.
+  InputState getInputState();
 
 private:
   // Represents whether or not a user wants to quit
@@ -48,6 +39,7 @@ private:
   bool resized;
   // Represents the total difference of the mouses coordinates, for x & y.
   MouseDelta md;
-  // Represents an unorded set of keys that were pressed during event polling.
+  // Represents an SDL-Specific unorded set of keys that were pressed during
+  // event polling.
   std::unordered_set<SDL_Scancode> keysPressed;
 };
