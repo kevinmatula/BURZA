@@ -10,16 +10,12 @@ struct InputState {
   std::array<bool, static_cast<size_t>(KeyCode::Count)> pressedKeys;
   MouseDelta mouseMovement;
 
-  // Constructor - Takes in givenMouseMovement & eventually givenMouseClicks.
-  InputState(const bool *givenPressedKeys, const MouseDelta &givenMouseMovement)
-      : pressedKeys(), mouseMovement(givenMouseMovement) {
-    memcpy(pressedKeys.data(), givenPressedKeys,
-           sizeof(bool) * static_cast<size_t>(KeyCode::Count));
-  }
+  // Constructor - Takes in givenPressedKeys, givenMouseMovement & eventually
+  // givenMouseClicks. Transforms givenPressedKeys pointer into local value.
+  InputState(const bool *givenPressedKeys,
+             const MouseDelta &givenMouseMovement);
 
   // Consumes a KeyCode enum and returns a boolean determining whether that key
   // has been pressed.
-  bool isKeyPressed(KeyCode key) const {
-    return pressedKeys[static_cast<size_t>(key)];
-  }
+  bool isKeyPressed(KeyCode key) const;
 };

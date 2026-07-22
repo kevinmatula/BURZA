@@ -9,7 +9,7 @@ struct MouseDelta {
   int dy;
 
   // Constructor
-  MouseDelta(int dxGiven, int dyGiven) : dx(dxGiven), dy(dyGiven) {}
+  MouseDelta(int dxGiven, int dyGiven);
   // Overload Constructor - Defualt
-  MouseDelta() : dx(0), dy(0) {}
+  MouseDelta();
 };

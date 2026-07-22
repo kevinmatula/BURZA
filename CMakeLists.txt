@@ -9,6 +9,8 @@ set(SOURCES
     src/rendering/Shader.cpp
     src/rendering/Mesh.cpp
     src/input/InputManager.cpp
+    src/input/InputState.cpp
+    src/input/MouseDelta.cpp
     src/world/Scene.cpp
     src/world/Camera.cpp
     src/math/Transform.cpp
