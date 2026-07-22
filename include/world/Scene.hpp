@@ -1,5 +1,6 @@
 #pragma once
 
+#include "input/InputState.hpp"
 #include "world/ecs/Registry.hpp"
 #include "world/ecs/system/System.hpp"
 #include <memory>
@@ -14,10 +15,11 @@ public:
         std::vector<std::unique_ptr<System>> givenSystems);
   // Default Constructor - Sets up a completely blank scene.
   Scene();
-  // Destructor - Auto-generated to retain move operator.
 
   // Calls update() on all subsystems.
   void update();
+  // Feeds InputState into Input Component.
+  void provideInput(const InputState &inputState);
 
 private:
   // Represents the scenes registry: the collection of components and entities.

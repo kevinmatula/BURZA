@@ -7,7 +7,7 @@
 // currently pressed, mouse buttons currently clicked, pixels moved with mouse).
 // This object is only valid for one frame.
 struct InputState {
-  std::array<bool, static_cast<size_t>(KeyCode::Count)> pressedKeys;
+  std::array<bool, static_cast<size_t>(KeyCode::Max)> pressedKeys;
   MouseDelta mouseMovement;
 
   // Constructor - Takes in givenPressedKeys, givenMouseMovement & eventually

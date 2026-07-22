@@ -40,5 +40,5 @@ enum class KeyCode {
   Eight = SDL_SCANCODE_8,
   Nine = SDL_SCANCODE_9,
   Space = SDL_SCANCODE_SPACE,
-  Count = SDL_SCANCODE_COUNT,
+  Max = SDL_SCANCODE_COUNT,
 };
