@@ -44,8 +44,8 @@ bool InputManager::isKeyHeld(SDL_Scancode scancode) {
   return keyboardState[scancode];
 }
 
-bool InputManager::isKeyPressed(SDL_Scancode scancode) {
-  return keysPressed.count(scancode);
+bool InputManager::isKeyPressed(KeyCode givenKey) {
+  return keysPressed.count(static_cast<SDL_Scancode>(givenKey));
 }
 
 MouseDelta InputManager::getMouseDelta() { return md; }

@@ -8,6 +8,8 @@
 
 // class Registry - Hub for all ECS systems, holds all ComponentContainers and
 // deals with lookup logic.
+// TODO: Add Resources (ECS singletons) alongside Entities for important
+// registry-wide, non-entity pieces of data.
 class Registry {
 public:
   // Constructor - Sets up Registry

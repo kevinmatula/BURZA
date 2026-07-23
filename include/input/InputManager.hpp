@@ -18,7 +18,7 @@ public:
   bool isKeyHeld(SDL_Scancode scancode);
   // Checks if a key has been pressed on the keyboard, returns a bool. This
   // function is specific to "1 and done" keypresses like escape.
-  bool isKeyPressed(SDL_Scancode scancode);
+  bool isKeyPressed(KeyCode givenKey);
   // Getter - Returns the boolean status of quitRequested
   bool isQuitRequested();
   // Getter - Returns the boolean status of mouseClicked

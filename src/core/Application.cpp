@@ -1,5 +1,4 @@
 #include "core/Application.hpp"
-#include "SDL3/SDL_scancode.h"
 #include "config/Settings.hpp"
 #include <chrono>
 using namespace std;
@@ -79,7 +78,7 @@ bool Application::pollInput() {
   if (inputManager.isMouseClicked()) {
     window.setRelativeMouseMode(true);
   }
-  if (inputManager.isKeyPressed(SDL_SCANCODE_ESCAPE)) {
+  if (inputManager.isKeyPressed(KeyCode::Escape)) {
     window.setRelativeMouseMode(false);
   }
 
