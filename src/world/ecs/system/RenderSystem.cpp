@@ -9,7 +9,7 @@ RenderSystem::RenderSystem()
     : ws(Settings::getReadInstance().getWindowSettings()),
       rs(Settings::getReadInstance().getRendererSettings()) {}
 
-void RenderSystem::update(Registry &reg) {
+void RenderSystem::run(Registry &reg) {
   std::vector<EntityID> renderables =
       reg.fetchEntitiesWith<MeshComponent, ShaderComponent, Transform>();
   const Camera &camera = reg.fetchSingleComponent<Camera>();

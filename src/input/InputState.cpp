@@ -9,8 +9,3 @@ InputState::InputState(const bool *givenPressedKeys,
 }
 
 InputState::InputState() : pressedKeys(), mouseMovement() {}
-
-// TODO: Move to InputSystem!
-// bool InputState::isKeyPressed(KeyCode key) const {
-//   return pressedKeys[static_cast<size_t>(key)];
-// }

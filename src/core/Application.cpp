@@ -25,16 +25,16 @@ void Application::run() {
 
     isRunning = pollInput();
     scene.provideInput(inputManager.getInputState());
-
     //  TODO: once entities & rendering calculations done, add alpha to
     //  timestep.
     while (accumulator >= appSettings.dt) {
-      update();
+      scene.fixedUpdate();
       accumulator -= appSettings.dt;
     }
 
     renderer.clear();
-    scene.update();
+    scene.frameUpdate();
+    scene.render();
     window.swap();
 
     auto endTime = chrono::high_resolution_clock::now();
@@ -48,24 +48,6 @@ void Application::run() {
 }
 
 void Application::loadScene(Scene givenScene) { scene = std::move(givenScene); }
-
-// TODO: These update functions should not be in application, eventually move
-// them to scene, so like scene.update(InputManager)
-void Application::update() {
-  //   double cameraVel = appSettings.movementVelocity * appSettings.dt;
-  //   if (inputManager.isKeyHeld(SDL_SCANCODE_W)) {
-  //     scene.getCamera().moveForward(cameraVel);
-  //   }
-  //   if (inputManager.isKeyHeld(SDL_SCANCODE_S)) {
-  //     scene.getCamera().moveForward(-cameraVel);
-  //   }
-  //   if (inputManager.isKeyHeld(SDL_SCANCODE_D)) {
-  //     scene.getCamera().moveRight(cameraVel);
-  //   }
-  //   if (inputManager.isKeyHeld(SDL_SCANCODE_A)) {
-  //     scene.getCamera().moveRight(-cameraVel);
-  //   }
-}
 
 bool Application::pollInput() {
   inputManager.pollEvent();
@@ -81,8 +63,5 @@ bool Application::pollInput() {
   if (inputManager.isKeyPressed(KeyCode::Escape)) {
     window.setRelativeMouseMode(false);
   }
-
-  // MouseDelta md = inputManager.getMouseDelta();
-  // scene.getCamera().setDirection(md.dx, md.dy);
   return true;
 }

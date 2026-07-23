@@ -4,6 +4,8 @@
 #include "rendering/Shader.hpp"
 #include "world/ecs/component/MeshComponent.hpp"
 #include "world/ecs/component/ShaderComponent.hpp"
+#include "world/ecs/system/DefaultMouseLookSystem.hpp"
+#include "world/ecs/system/DefaultMovementSystem.hpp"
 #include "world/ecs/system/RenderSystem.hpp"
 #include <memory>
 
@@ -36,7 +38,16 @@ void Nedolia::init() {
   reg.addComponent(e1, shaderComp);
   reg.addComponent(e1, transform);
 
-  std::vector<std::unique_ptr<System>> systems;
-  systems.push_back(std::make_unique<RenderSystem>());
-  scenes.push_back(Scene(std::move(reg), std::move(systems)));
+  std::vector<std::unique_ptr<System>> fixedUpdateSystems;
+  fixedUpdateSystems.push_back(std::make_unique<DefaultMovementSystem>());
+
+  std::vector<std::unique_ptr<System>> frameUpdateSystems;
+  frameUpdateSystems.push_back(std::make_unique<DefaultMouseLookSystem>());
+
+  std::vector<std::unique_ptr<System>> renderSystems;
+  renderSystems.push_back(std::make_unique<RenderSystem>());
+
+  scenes.push_back(Scene(std::move(reg), std::move(fixedUpdateSystems),
+                         std::move(frameUpdateSystems),
+                         std::move(renderSystems)));
 }

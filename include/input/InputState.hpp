@@ -20,9 +20,4 @@ struct InputState {
 
   // Default Constructor for InputState.
   InputState();
-
-  // // Consumes a KeyCode enum and returns a boolean determining whether that
-  // key
-  // // has been pressed.
-  // bool isKeyPressed(KeyCode key) const;
 };

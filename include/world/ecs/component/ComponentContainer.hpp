@@ -57,10 +57,19 @@ public:
     return typeToStoreIndex.count(givenId);
   }
 
-  // This function returns its single EntityID, assuming that it only has one
-  // value in the hashmap. This function is specifically for special components
-  // (i.e., Camera) where there should typically only be one.
+  // This function returns the single value of this component, assuming that it
+  // only has one value in the hashmap. This function is specifically for
+  // special components (i.e., Camera) where there should typically only be one.
   const T &fetchSingleComponent() const {
+    assert(!typeToStoreIndex.empty() && typeToStoreIndex.size() == 1);
+    EntityID id = typeToStoreIndex.begin()->first;
+    return typedComponentStore.at(typeToStoreIndex.at(id));
+  }
+
+  // This function returns the single value of this component, assuming that it
+  // only has one value in the hashmap. This function is specifically for
+  // special components (i.e., Camera) where there should typically only be one.
+  T &fetchSingleComponent() {
     assert(!typeToStoreIndex.empty() && typeToStoreIndex.size() == 1);
     EntityID id = typeToStoreIndex.begin()->first;
     return typedComponentStore.at(typeToStoreIndex.at(id));

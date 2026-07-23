@@ -23,6 +23,8 @@ set(SOURCES
     src/world/ecs/EntityID.cpp
     src/world/ecs/Registry.cpp
     src/world/ecs/system/RenderSystem.cpp
+    src/world/ecs/system/DefaultMovementSystem.cpp
+    src/world/ecs/system/DefaultMouseLookSystem.cpp
     external/glad/src/glad.c
     nedolia/src/Nedolia.cpp
 )

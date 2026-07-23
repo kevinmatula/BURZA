@@ -39,11 +39,6 @@ void InputManager::pollEvent() {
   }
 }
 
-bool InputManager::isKeyHeld(SDL_Scancode scancode) {
-  const bool *keyboardState = SDL_GetKeyboardState(NULL);
-  return keyboardState[scancode];
-}
-
 bool InputManager::isKeyPressed(KeyCode givenKey) {
   return keysPressed.count(static_cast<SDL_Scancode>(givenKey));
 }

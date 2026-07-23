@@ -9,7 +9,7 @@ public:
   // Default Constructor for RenderSystem
   RenderSystem();
   // Draws all entities with Mesh, Shader, and Transform onto the screen.
-  void update(Registry &reg) override;
+  void run(Registry &reg) override;
 
 private:
   // Draws all entities with Mesh, Shader, and Transform to the screen.

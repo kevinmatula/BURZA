@@ -12,5 +12,5 @@ public:
 
   // Pure virtual function to update system and game state depending on values
   // in container registry.
-  virtual void update(Registry &reg) = 0;
+  virtual void run(Registry &reg) = 0;
 };
