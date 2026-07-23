@@ -11,8 +11,9 @@ public:
   // Overload Constructor - Takes in some values and sets up Camera accordingly.
   Camera(glm::vec3 position, glm::vec3 direction);
 
-  // Returns a 4x4 matrix representing the view in the MVP matrix.
-  const glm::mat4 getView() const;
+  // Returns a 4x4 matrix representing the view in the MVP matrix. Uses a cache
+  // with invalidation pattern to lazy-load the view.
+  const glm::mat4 &getView() const;
   // Returns the position member variable of the camera.
   const glm::vec3 getPosition() const;
   // Returns the direction member variable of the camera.
@@ -42,6 +43,16 @@ private:
   float yaw;
   // Represents the up-and-down direction the camera is looking
   float pitch;
+
+  // Cache with invalidation pattern.
+  // NOTE: Re-evaluate this pattern when implementing parallelism, having these
+  // mutable variables change in const functions will destroy any
+  // multi-threading.
+
+  // Cached view matrix as to not repeatedly compute.
+  mutable glm::mat4 view;
+  // Represents whether or not the view has changed from its previous state.
+  mutable bool v_dirty;
 
   // Sets the rest of the basis vectors (the vectors that describe any point in
   // space). We only set direction in setDirection, and need to also set the up
