@@ -6,8 +6,11 @@ struct CameraSettings {
   // Represents the absolute lowest and highest the camera can look. Must be
   // < 90.0 in order to avoid matrices error.
   const float pitchClamp = 89.0;
+  // Represents the speed of movement in the camera.
+  const float movementSpeed = 5.0;
 
-  CameraSettings(float givenSensitivity, float pitchClamp);
+  CameraSettings(float givenSensitivity, float pitchClamp,
+                 float givenMovementSpeed);
   CameraSettings();
   ~CameraSettings();
 };
@@ -27,12 +30,9 @@ struct RendererSettings {
 };
 
 struct ApplicationSettings {
-  // Represents the speed of movement in the camera.
-  const float movementVelocity = 5.0;
   // Represents time passed between each frame (60 FPS).
   const double dt = 1.0 / 60.0;
 
-  ApplicationSettings(float givenMovementVelocity);
   ApplicationSettings();
   ~ApplicationSettings();
 };

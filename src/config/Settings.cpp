@@ -1,8 +1,10 @@
 #include "config/Settings.hpp"
 
 // Camera Settings
-CameraSettings::CameraSettings(float givenSensitivity, float givenPitchClamp)
-    : sensitivity(givenSensitivity), pitchClamp(givenPitchClamp) {}
+CameraSettings::CameraSettings(float givenSensitivity, float givenPitchClamp,
+                               float givenMovementSpeed)
+    : sensitivity(givenSensitivity), pitchClamp(givenPitchClamp),
+      movementSpeed(givenMovementSpeed) {}
 
 CameraSettings::CameraSettings() {}
 
@@ -22,9 +24,6 @@ RendererSettings::~RendererSettings() {}
 //
 
 // Application Settings
-ApplicationSettings::ApplicationSettings(float givenMovementVelocity)
-    : movementVelocity(givenMovementVelocity) {}
-
 ApplicationSettings::ApplicationSettings() {}
 
 ApplicationSettings::~ApplicationSettings() {}
