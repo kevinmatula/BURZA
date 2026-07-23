@@ -8,6 +8,9 @@ InputState::InputState(const bool *givenPressedKeys,
          sizeof(bool) * static_cast<size_t>(KeyCode::Max));
 }
 
-bool InputState::isKeyPressed(KeyCode key) const {
-  return pressedKeys[static_cast<size_t>(key)];
-}
+InputState::InputState() : pressedKeys(), mouseMovement() {}
+
+// TODO: Move to InputSystem!
+// bool InputState::isKeyPressed(KeyCode key) const {
+//   return pressedKeys[static_cast<size_t>(key)];
+// }

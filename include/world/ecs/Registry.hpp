@@ -20,19 +20,19 @@ public:
   // Adds a new component to our registry. If the component does not already
   // exist, creates new ComponentContainer and adds itself to it.
   template <typename T>
-  void addComponent(const EntityID &givenId, const T &givenComponent) {
+  void addComponent(const EntityID &givenId, const T &givenValue) {
     // If the ComponentContainer already exists in this registry, add the
     // component to the ComponentContainer.
     if (typeToContainer.count(typeid(T))) {
       TypedComponentContainer<T> *rawTypedContainer = getTypedContainer<T>();
-      rawTypedContainer->addComponent(givenId, givenComponent);
+      rawTypedContainer->addComponent(givenId, givenValue);
     }
     // If the ComponentContainer does not exist in the registry, create the new
     // ComponentContainer and add the component.
     else {
       std::unique_ptr<TypedComponentContainer<T>> newContainer =
           std::make_unique<TypedComponentContainer<T>>();
-      newContainer->addComponent(givenId, givenComponent);
+      newContainer->addComponent(givenId, givenValue);
       typeToContainer[typeid(T)] = std::move(newContainer);
     }
   }
@@ -69,8 +69,17 @@ public:
     return entities;
   }
 
+  // Sets a given EntityID of Component type T to the given T value.
+  template <typename T>
+  void setComponent(const EntityID &givenId, const T &givenValue) {
+    assert(typeToContainer.count(typeid(T)));
+    TypedComponentContainer<T> *rawTypedContainer = getTypedContainer<T>();
+    rawTypedContainer->setComponent(givenId, givenValue);
+  }
+
 private:
-  // Vector corresponding to total Entities in each scene. EntityID starts at 0.
+  // Vector corresponding to total Entities in each scene. EntityID starts at
+  // 0.
   std::vector<EntityID> allEntities;
   // Hashmap that maps type_indexes (defined at runtime since abstract) to
   // pointers of our ComponentContainers.

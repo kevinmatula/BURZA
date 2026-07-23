@@ -25,7 +25,10 @@ void Application::run() {
     accumulator += frameTime;
 
     isRunning = pollInput();
-    // TODO: once entities & rendering calculations done, add alpha to timestep.
+    scene.provideInput(inputManager.getInputState());
+
+    //  TODO: once entities & rendering calculations done, add alpha to
+    //  timestep.
     while (accumulator >= appSettings.dt) {
       update();
       accumulator -= appSettings.dt;

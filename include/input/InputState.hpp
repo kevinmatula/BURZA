@@ -7,7 +7,10 @@
 // currently pressed, mouse buttons currently clicked, pixels moved with mouse).
 // This object is only valid for one frame.
 struct InputState {
+  // Represents a boolean array, identical to that of SDLs Library, representing
+  // the status of each key on a keyboard.
   std::array<bool, static_cast<size_t>(KeyCode::Max)> pressedKeys;
+  // Represents the x and y movement of the mouse.
   MouseDelta mouseMovement;
 
   // Constructor - Takes in givenPressedKeys, givenMouseMovement & eventually
@@ -15,7 +18,11 @@ struct InputState {
   InputState(const bool *givenPressedKeys,
              const MouseDelta &givenMouseMovement);
 
-  // Consumes a KeyCode enum and returns a boolean determining whether that key
-  // has been pressed.
-  bool isKeyPressed(KeyCode key) const;
+  // Default Constructor for InputState.
+  InputState();
+
+  // // Consumes a KeyCode enum and returns a boolean determining whether that
+  // key
+  // // has been pressed.
+  // bool isKeyPressed(KeyCode key) const;
 };

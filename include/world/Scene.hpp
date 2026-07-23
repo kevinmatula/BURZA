@@ -18,7 +18,7 @@ public:
 
   // Calls update() on all subsystems.
   void update();
-  // Feeds InputState into Input Component.
+  // Feeds given InputState into our scene's native InputState.
   void provideInput(const InputState &inputState);
 
 private:
@@ -26,4 +26,10 @@ private:
   Registry registry;
   // Represents the collection of system for this scene.
   std::vector<std::unique_ptr<System>> systems;
+  // The EntityID for this scene's single Input Entity.
+  EntityID inputEntity;
+
+  // Private function to initialize blank InputState. Primary use is to reduce
+  // code-duplication within our Scene constructors.
+  void initBlankInputState();
 };
