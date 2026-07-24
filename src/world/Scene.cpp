@@ -45,3 +45,7 @@ void Scene::initDefaultResources() {
   registry.addResource(Camera{});
   registry.addResource(InputState{});
 }
+
+void Scene::invalidateCameraProjectionCache() {
+  registry.fetchResourceMut<Camera>().invalidateProjectionCache();
+}

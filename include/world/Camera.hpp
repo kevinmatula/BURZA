@@ -34,6 +34,9 @@ public:
   void moveRight(float amount);
   // Sets the camera's direction using given yaw and pitch deltas.
   void setDirection(float yawDelta, float pitchDelta);
+  // Sets the p_dirty member to true, indicating that the projection matrix must
+  // be recomputed.
+  void invalidateProjectionCache();
 
 private:
   // Necessary vec3s representing different aspects of the camera.

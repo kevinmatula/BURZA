@@ -29,6 +29,9 @@ public:
   void setInput(const InputState &inputState);
   // Sets the camera resource within this scene's registry.
   void setCamera(const Camera &givenCamera);
+  // Calls the camera class's invalidateProjectionCache function to recompute
+  // the projection matrix.
+  void invalidateCameraProjectionCache();
 
 private:
   // Represents the scenes registry: the collection of components and
@@ -44,7 +47,7 @@ private:
   // scene.
   std::vector<std::unique_ptr<System>> renderSystems;
 
-  // Private function to initialize necessary resources for every Scene. Primary
-  // use is to reduce code-duplication within our Scene constructors.
+  // Private function to initialize necessary resources for every Scene.
+  // Primary use is to reduce code-duplication within our Scene constructors.
   void initDefaultResources();
 };

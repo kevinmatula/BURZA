@@ -43,6 +43,8 @@ const glm::mat4 &Camera::getProjection() const {
   return projection;
 }
 
+void Camera::invalidateProjectionCache() { p_dirty = true; }
+
 const glm::vec3 Camera::getPosition() const { return position; }
 
 const glm::vec3 Camera::getDirection() const { return direction; }
