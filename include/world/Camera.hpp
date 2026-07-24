@@ -14,6 +14,9 @@ public:
   // Returns a 4x4 matrix representing the view in the MVP matrix. Uses a cache
   // with invalidation pattern to lazy-load the view.
   const glm::mat4 &getView() const;
+  // Returns a 4x4 matrix representing the projection in the MVP matrix. Uses a
+  // cache with invalidation pattern to lazy-load the projection.
+  const glm::mat4 &getProjection() const;
   // Returns the position member variable of the camera.
   const glm::vec3 getPosition() const;
   // Returns the direction member variable of the camera.
@@ -52,7 +55,12 @@ private:
   // Cached view matrix as to not repeatedly compute.
   mutable glm::mat4 view;
   // Represents whether or not the view has changed from its previous state.
-  mutable bool v_dirty;
+  mutable bool v_dirty = true;
+
+  // Cached projection matrix
+  mutable glm::mat4 projection;
+  // Represents whether or not the projection has changed from previous state.
+  mutable bool p_dirty = true;
 
   // Sets the rest of the basis vectors (the vectors that describe any point in
   // space). We only set direction in setDirection, and need to also set the up

@@ -6,8 +6,7 @@
 #include "world/ecs/component/ShaderComponent.hpp"
 
 RenderSystem::RenderSystem()
-    : ws(Settings::getReadInstance().getWindowSettings()),
-      rs(Settings::getReadInstance().getRendererSettings()) {}
+    : ws(Settings::getReadInstance().getWindowSettings()) {}
 
 void RenderSystem::run(Registry &reg) {
   std::vector<EntityID> renderables =
@@ -21,8 +20,8 @@ void RenderSystem::draw(Registry &reg, const std::vector<EntityID> &renderables,
   float aspect = static_cast<float>(ws.currentWidth) / ws.currentHeight;
   Frustum frustum = Frustum::createFrustumFromCamera(camera, aspect);
 
-  glm::mat4 view = camera.getView();
-  glm::mat4 projection = calculateProjection();
+  const glm::mat4 &view = camera.getView();
+  const glm::mat4 &projection = camera.getProjection();
 
   for (EntityID entity : renderables) {
     const Mesh &mesh = *reg.fetchComponent<MeshComponent>(entity).mesh;
@@ -40,13 +39,4 @@ void RenderSystem::draw(Registry &reg, const std::vector<EntityID> &renderables,
       mesh.draw();
     }
   }
-}
-
-// TODO: Remove this method and dynamically reload projection matrix in camera
-// class.
-glm::mat4 RenderSystem::calculateProjection() const {
-  glm::mat4 projection = glm::perspective(
-      glm::radians(rs.fov), float(ws.currentWidth) / float(ws.currentHeight),
-      rs.startingLookDistance, rs.maxLookDistance);
-  return projection;
 }

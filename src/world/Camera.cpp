@@ -5,17 +5,19 @@
 
 Camera::Camera()
     : position(0.0f), direction(glm::vec3(0.0f, 0.0f, -1.0f)), yaw(-90.0),
-      pitch(0), v_dirty(true) {
+      pitch(0) {
   updateBasis();
   getView();
+  getProjection();
 }
 
 Camera::Camera(glm::vec3 givenPosition, glm::vec3 givenDirection)
-    : position(givenPosition), direction(givenDirection), v_dirty(true) {
+    : position(givenPosition), direction(givenDirection) {
   yaw = glm::degrees(atan2(direction.z, direction.x));
   pitch = glm::degrees(asin(direction.y));
   updateBasis();
   getView();
+  getProjection();
 }
 
 const glm::mat4 &Camera::getView() const {
@@ -24,6 +26,21 @@ const glm::mat4 &Camera::getView() const {
     view = glm::lookAt(position, position + direction, up);
   }
   return view;
+}
+
+const glm::mat4 &Camera::getProjection() const {
+  if (p_dirty) {
+    p_dirty = false;
+
+    const Settings &stngs = Settings::getReadInstance();
+    const RendererSettings &rs = stngs.getRendererSettings();
+    const WindowSettings &ws = stngs.getWindowSettings();
+
+    projection = glm::perspective(
+        glm::radians(rs.fov), float(ws.currentWidth) / float(ws.currentHeight),
+        rs.startingLookDistance, rs.maxLookDistance);
+  }
+  return projection;
 }
 
 const glm::vec3 Camera::getPosition() const { return position; }

@@ -57,5 +57,5 @@ private:
   // Cached model matrix as to not repeatedly compute.
   mutable glm::mat4 model;
   // Represents whether or not the model has changed from its previous state.
-  mutable bool m_dirty;
+  mutable bool m_dirty = true;
 };
