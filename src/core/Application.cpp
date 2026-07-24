@@ -56,6 +56,7 @@ bool Application::pollInput() {
   }
   if (inputManager.isResized()) {
     renderer.resize(window.getWindowSize());
+    // Call scene.recomputeProjection();
   }
   if (inputManager.isMouseClicked()) {
     window.setRelativeMouseMode(true);

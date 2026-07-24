@@ -2,7 +2,7 @@
 
 #include "world/ecs/Registry.hpp"
 
-// class System - Abstract Base Clas for concrete System classes (i.e.,
+// class System - Abstract Base Class for concrete System classes (i.e.,
 // MovementSystem) that does logic on select components. Cornerstone of ECS
 // system in BURZA.
 class System {
