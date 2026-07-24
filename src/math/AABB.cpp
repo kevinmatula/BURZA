@@ -10,8 +10,9 @@ AABB::AABB(const glm::vec3 &givenCenter, float givenIx, float givenIy,
            float givenIz)
     : center(givenCenter), extents({givenIx, givenIy, givenIz}) {}
 
-bool AABB::isOnFrustum(const Frustum &frustum, Transform &transform) const {
-  const glm::mat4 model = transform.computeModel();
+bool AABB::isOnFrustum(const Frustum &frustum,
+                       const Transform &transform) const {
+  const glm::mat4 &model = transform.getModel();
 
   // Transform local center to global
   const glm::vec3 globalCenter{model * glm::vec4(center, 1.0f)};

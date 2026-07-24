@@ -26,14 +26,14 @@ void RenderSystem::draw(Registry &reg, const std::vector<EntityID> &renderables,
 
   for (EntityID entity : renderables) {
     const Mesh &mesh = *reg.fetchComponent<MeshComponent>(entity).mesh;
-    Transform &transform = reg.fetchComponent<Transform>(entity);
+    const Transform &transform = reg.fetchComponent<Transform>(entity);
 
     if (mesh.getAABB().isOnFrustum(frustum, transform)) {
       const Shader &shader =
           *reg.fetchComponent<ShaderComponent>(entity).shader;
       shader.use();
 
-      shader.applyMatrix(MVP::Model, transform.computeModel());
+      shader.applyMatrix(MVP::Model, transform.getModel());
       shader.applyMatrix(MVP::View, view);
       shader.applyMatrix(MVP::Projection, projection);
 

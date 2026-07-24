@@ -21,7 +21,7 @@ struct AABB {
   // Checks if this AABB exists on the given Frustum by transforming local
   // position to global and checking that it is within each plane in the
   // frustum.
-  bool isOnFrustum(const Frustum &frustum, Transform &transform) const;
+  bool isOnFrustum(const Frustum &frustum, const Transform &transform) const;
 
   // Checks if the AABB is on or in front of the given plane.
   // NOTE: This function uses complex math I found in an article !

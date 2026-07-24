@@ -31,7 +31,7 @@ public:
   // Computes and returns the model as a mat4 using local scale, rot, and trans.
   // Only computes if transform has been changed, will alter m_dirty and model
   // as side effect.
-  const glm::mat4 &computeModel();
+  const glm::mat4 &getModel() const;
   // Updates the Transform scale vec3 using the given scale.
   void setScale(glm::vec3 givenScale);
   // Updates the Transform rotation pair using the given rotation.
@@ -49,8 +49,13 @@ private:
   glm::vec3 translation;
 
   // Cache with invalidation pattern.
+  // NOTE: Re-evaluate this pattern when implementing parallelism, having these
+  // mutable variables change in const functions will destroy any
+  // multi-threading. Consider just re-computing upon every "set" call & keep
+  // getModel const.
+
   // Cached model matrix as to not repeatedly compute.
-  glm::mat4 model;
+  mutable glm::mat4 model;
   // Represents whether or not the model has changed from its previous state.
-  bool m_dirty;
+  mutable bool m_dirty;
 };
