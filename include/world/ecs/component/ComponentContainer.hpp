@@ -15,7 +15,7 @@ public:
   virtual ~ComponentContainer() = default;
 };
 
-// Class TypedComponentContainer - Templated, derived abstract class allowing
+// Class TypedComponentContainer - Templated, derived concrete class allowing
 // for arbitrarily-typed containers to be created !
 template <typename T>
 class TypedComponentContainer : public ComponentContainer {

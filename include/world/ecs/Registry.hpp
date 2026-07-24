@@ -2,14 +2,14 @@
 
 #include "EntityID.hpp"
 #include "world/ecs/component/ComponentContainer.hpp"
+#include "world/ecs/resource/Resource.hpp"
 #include <cassert>
 #include <memory>
 #include <typeindex>
 
 // class Registry - Hub for all ECS systems, holds all ComponentContainers and
 // deals with lookup logic.
-// TODO: Add Resources (ECS singletons) alongside Entities for important
-// registry-wide, non-entity pieces of data.
+// TODO: Make Component Functions use similar "Mut" keyword on mutable getters.
 class Registry {
 public:
   // Constructor - Sets up Registry
@@ -85,6 +85,39 @@ public:
     rawTypedContainer->setComponent(givenId, givenValue);
   }
 
+  // Retrieves a const& of resource by type.
+  template <typename T> const T &fetchResource() const {
+    assert(typeToResource.count(typeid(T)));
+    const TypedResource<T> *rawTypedResource = getTypedResource<T>();
+    return rawTypedResource->fetchResource();
+  }
+
+  // Retrieves a reference of resource by type.
+  template <typename T> T &fetchResourceMut() {
+    assert(typeToResource.count(typeid(T)));
+    TypedResource<T> *rawTypedResource = getTypedResourceMut<T>();
+    return rawTypedResource->fetchResourceMut();
+  }
+
+  // Adds the given resource to our Registry.
+  template <typename T> void addResource(const T &givenResource) {
+    // There should only be unique resource types.
+    assert(!typeToResource.count(typeid(T)));
+
+    std::unique_ptr<TypedResource<T>> newResource =
+        std::make_unique<TypedResource<T>>(givenResource);
+
+    typeToResource[typeid(T)] = std::move(newResource);
+  }
+
+  // Sets the entire resource variable to the given resource variable. This
+  // function is specifically for re-assignment.
+  template <typename T> void setResource(const T &givenResource) {
+    assert(typeToResource.count(typeid(T)));
+    TypedResource<T> *rawTypedResource = getTypedResourceMut<T>();
+    rawTypedResource->setResource(givenResource);
+  }
+
 private:
   // Vector corresponding to total Entities in each scene. EntityID starts at
   // 0.
@@ -93,8 +126,12 @@ private:
   // pointers of our ComponentContainers.
   std::unordered_map<std::type_index, std::unique_ptr<ComponentContainer>>
       typeToContainer;
+  // Hashmap that maps type_indexes (defined at runtime since abstract) to
+  // pointers of our Resources
+  std::unordered_map<std::type_index, std::unique_ptr<Resource>> typeToResource;
 
-  // Retrieves the raw pointer for a TypedComponentContainer<T> via downcasting.
+  // Retrieves the raw pointer for a TypedComponentContainer<T> via
+  // downcasting.
   template <typename T> TypedComponentContainer<T> *getTypedContainer() {
     std::type_index componentIndex = typeid(T);
     ComponentContainer *rawContainer = typeToContainer.at(componentIndex).get();
@@ -136,5 +173,31 @@ private:
     }
 
     givenEntities = newEntities;
+  }
+
+  // Retrieves the raw pointer for a TypedResource<T> via
+  // downcasting.
+  template <typename T> TypedResource<T> *getTypedResourceMut() {
+    std::type_index resourceIndex = typeid(T);
+    Resource *rawResource = typeToResource.at(resourceIndex).get();
+
+    TypedResource<T> *rawTypedResource =
+        dynamic_cast<TypedResource<T> *>(rawResource);
+
+    assert(rawTypedResource != nullptr);
+    return rawTypedResource;
+  }
+
+  // Retrieves the const, raw pointer for a TypedResource<T> via
+  // downcasting.
+  template <typename T> const TypedResource<T> *getTypedResource() const {
+    std::type_index resourceIndex = typeid(T);
+    const Resource *rawResource = typeToResource.at(resourceIndex).get();
+
+    const TypedResource<T> *rawTypedResource =
+        dynamic_cast<const TypedResource<T> *>(rawResource);
+
+    assert(rawTypedResource != nullptr);
+    return rawTypedResource;
   }
 };
