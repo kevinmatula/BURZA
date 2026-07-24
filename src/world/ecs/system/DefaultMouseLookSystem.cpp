@@ -5,8 +5,8 @@
 DefaultMouseLookSystem::DefaultMouseLookSystem() {}
 
 void DefaultMouseLookSystem::run(Registry &reg) {
-  const InputState &input = reg.fetchSingleComponent<InputState>();
-  Camera &camera = reg.fetchSingleComponent<Camera>();
+  const InputState &input = reg.fetchResource<InputState>();
+  Camera &camera = reg.fetchResourceMut<Camera>();
   const MouseDelta &md = input.mouseMovement;
   camera.setDirection(md.dx, md.dy);
 }

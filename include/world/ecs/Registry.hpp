@@ -55,19 +55,6 @@ public:
     return rawTypedContainer->fetchComponent(givenId);
   }
 
-  template <typename T> const T &fetchSingleComponent() const {
-    assert(typeToContainer.count(typeid(T)));
-    const TypedComponentContainer<T> *rawTypedContainer =
-        getTypedContainer<T>();
-    return rawTypedContainer->fetchSingleComponent();
-  }
-
-  template <typename T> T &fetchSingleComponent() {
-    assert(typeToContainer.count(typeid(T)));
-    TypedComponentContainer<T> *rawTypedContainer = getTypedContainer<T>();
-    return rawTypedContainer->fetchSingleComponent();
-  }
-
   // Fetches all EntityIDs that are tied to the given components.
   // Uses Variadic Template. Users are meant to pass in an arbitrary amount of
   // component types.

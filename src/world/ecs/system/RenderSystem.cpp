@@ -11,7 +11,7 @@ RenderSystem::RenderSystem()
 void RenderSystem::run(Registry &reg) {
   std::vector<EntityID> renderables =
       reg.fetchEntitiesWith<MeshComponent, ShaderComponent, Transform>();
-  const Camera &camera = reg.fetchSingleComponent<Camera>();
+  const Camera &camera = reg.fetchResource<Camera>();
   draw(reg, renderables, camera);
 }
 

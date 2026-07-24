@@ -9,12 +9,11 @@ Scene::Scene(Registry givenRegistry,
     : registry(std::move(givenRegistry)),
       fixedUpdateSystems(std::move(givenFixedUpdateSystems)),
       frameUpdateSystems(std::move(givenFrameUpdateSystems)),
-      renderSystems(std::move(givenRenderSystems)),
-      inputEntity(registry.createEntity()) {
-  initBlankInputState();
+      renderSystems(std::move(givenRenderSystems)) {
+  initDefaultResources();
 }
 
-Scene::Scene() : inputEntity(registry.createEntity()) { initBlankInputState(); }
+Scene::Scene() { initDefaultResources(); }
 
 void Scene::fixedUpdate() {
   for (std::unique_ptr<System> &system : fixedUpdateSystems) {
@@ -34,11 +33,15 @@ void Scene::render() {
   }
 }
 
-void Scene::provideInput(const InputState &inputSnapshot) {
-  registry.setComponent<InputState>(inputEntity, inputSnapshot);
+void Scene::setInput(const InputState &inputSnapshot) {
+  registry.setResource(inputSnapshot);
 }
 
-void Scene::initBlankInputState() {
-  InputState blankInputState;
-  registry.addComponent(inputEntity, blankInputState);
+void Scene::setCamera(const Camera &givenCamera) {
+  registry.setResource(givenCamera);
+}
+
+void Scene::initDefaultResources() {
+  registry.addResource(Camera{});
+  registry.addResource(InputState{});
 }

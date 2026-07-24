@@ -7,8 +7,8 @@ DefaultMovementSystem::DefaultMovementSystem()
       as(Settings::getReadInstance().getApplicationSettings()) {}
 
 void DefaultMovementSystem::run(Registry &reg) {
-  const InputState &input = reg.fetchSingleComponent<InputState>();
-  Camera &camera = reg.fetchSingleComponent<Camera>();
+  const InputState &input = reg.fetchResource<InputState>();
+  Camera &camera = reg.fetchResourceMut<Camera>();
   double cameraVel = cs.movementSpeed * as.dt;
   if (isKeyHeld(input, KeyCode::W)) {
     camera.moveForward(cameraVel);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "input/InputState.hpp"
+#include "world/Camera.hpp"
 #include "world/ecs/Registry.hpp"
 #include "world/ecs/system/System.hpp"
 #include <memory>
@@ -25,24 +26,25 @@ public:
   // Calls run() on all rendering subsystems.
   void render();
   // Feeds given InputState into our scene's native InputState.
-  void provideInput(const InputState &inputState);
+  void setInput(const InputState &inputState);
+  // Sets the camera resource within this scene's registry.
+  void setCamera(const Camera &givenCamera);
 
 private:
-  // Represents the scenes registry: the collection of components and entities.
+  // Represents the scenes registry: the collection of components and
+  // entities.
   Registry registry;
   // Represents the collection of fixed update systems (run multiple times per
   // frame, depending on timestep) for this scene.
   std::vector<std::unique_ptr<System>> fixedUpdateSystems;
-  // Represents the collection of update systems (runs once per frame) for this
-  // scene.
+  // Represents the collection of update systems (runs once per frame) for
+  // this scene.
   std::vector<std::unique_ptr<System>> frameUpdateSystems;
   // Represents the collection of render systems (run once per frame) for this
   // scene.
   std::vector<std::unique_ptr<System>> renderSystems;
-  // The EntityID for this scene's single Input Entity.
-  EntityID inputEntity;
 
-  // Private function to initialize blank InputState. Primary use is to reduce
-  // code-duplication within our Scene constructors.
-  void initBlankInputState();
+  // Private function to initialize necessary resources for every Scene. Primary
+  // use is to reduce code-duplication within our Scene constructors.
+  void initDefaultResources();
 };
